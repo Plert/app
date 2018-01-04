@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the AddAlertPage page.
+ * Generated class for the NewAlertPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,16 +10,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-add-alert',
-  templateUrl: 'add-alert.html',
+  selector: 'page-new-alert',
+  templateUrl: 'new-alert.html',
 })
-export class AddAlertPage {
+export class NewAlertPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AddAlertPage');
+    console.log('ionViewDidLoad NewAlertPage');
   }
 
 }

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { AddAlertPage } from './add-alert';
+import { NewAlertPage } from './new-alert';
 
 @NgModule({
   declarations: [
-    AddAlertPage,
+    NewAlertPage,
   ],
   imports: [
-    IonicPageModule.forChild(AddAlertPage),
+    IonicPageModule.forChild(NewAlertPage),
   ],
 })
-export class AddAlertPageModule {}
+export class NewAlertPageModule {}

@@ -1,0 +1,8 @@
+{
+  "name": "plert",
+  "app_id": "84ce151e",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

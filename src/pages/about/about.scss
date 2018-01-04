@@ -1,3 +1,53 @@
 page-about {
+}
+.text-white{
+  color:white !important;
+}
+.bg-green{
+  background-color: #99C24D;
+}
+.bg-orange{
+  background-color: #F28123;
+}
+.bg-blue{
+  background-color: blue;
+}
+.round-border{
+  border:solid 1px;
+  border-radius: 5px;
+}
+.border-gray{
+  border-color: gray
+}
+.margin-top{
+  margin-top:5px;
+}
+.margin-bottom{
+  margin-bottom:5px;
+}
+.margin-right{
+  margin-right:5px;
+}
+.margin-left{
+  margin-left:5px;
+}
+.margin{
+  margin:5px;
+}
+.text-center{
+  text-align: center;
+}
+.location-card{
+  height: 85px;
+}
+.location-card ion-row{
+  height: 100%
+}
 
+.location-card img{
+  height: 100%;
+  border:0px solid gray;
+  border-radius: 500px;
+  -webkit-border-radius: 500px;
+  -moz-border-radius: 500px;
 }

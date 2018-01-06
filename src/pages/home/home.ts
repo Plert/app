@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NewAlertPage } from '../new-alert/new-alert'
 import { Storage } from '@ionic/storage';
+import { ViewAlertPage } from '../view-alert/view-alert';
 
 @Component({
   selector: 'page-home',
@@ -27,4 +28,22 @@ export class HomePage {
     });
 
   }
+
+  updateAlerts(){
+    // Set to storage
+    this.storage.set("alerts",JSON.stringify(this.alerts));
+  }
+
+  remove(alert){
+    // Search in this alerts for id and remove from list
+    let index = this.alerts.indexOf(alert);
+    this.alerts.splice(index,1);
+    this.storage.set("alerts",JSON.stringify(this.alerts));
+  }
+
+  onClick(alert){
+    // GO to VIEW ALERT
+    this.navCtrl.push(ViewAlertPage,alert);
+  }
+
 }

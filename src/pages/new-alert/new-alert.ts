@@ -53,13 +53,15 @@ export class NewAlertPage {
   saveAlert(){
     console.log("saving");  
     let newAlert = {
+      id:Math.random().toString(36).substr(2, 9),
       name: this.name,
       latitude: this.latitude,
       longitude: this.longitude,
       phone1: this.phone1,
       phone2: this.phone2,
       phone3: this.phone3,
-      message: this.message
+      message: this.message,
+      status: true
     }
     this.alerts.push(newAlert);
     console.log(newAlert);
@@ -67,7 +69,8 @@ export class NewAlertPage {
     this.storage.set("alerts",JSON.stringify(this.alerts));
 
     // GO HOME
-    this.navCtrl.push(HomePage);
+    this.navCtrl.pop();
+    window.location.reload();
     
   }
 

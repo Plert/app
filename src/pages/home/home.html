@@ -7,17 +7,22 @@
 <ion-content padding>
   <ion-list>
     
-    <ion-item *ngFor="let alert of alerts">
-      <ion-toggle checked="true"></ion-toggle>
-      <ion-label>
-        <h2>{{alert.name}}</h2>
-        <p>{{alert.message}}</p>
-      </ion-label>
-    </ion-item>
+    <ion-item-sliding *ngFor="let alert of alerts">
+      <ion-item>
+        <ion-toggle [(ngModel)]="alert.status" (ionChange)="updateAlerts()"></ion-toggle>
+        <ion-label (click)="onClick(alert)">
+          <h2>{{alert.name}}</h2>
+          <p>{{alert.message}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options>
+        <button ion-button color="danger" (click)="remove(alert)">Delete</button>
+      </ion-item-options>
+    </ion-item-sliding>
 
     
   </ion-list>
   <ion-fab right bottom>
-    <button ion-fab color="primary" [navPush]="onClickNewAlert"><ion-icon name="add"></ion-icon></button>
+    <button ion-fab color="primary" [navPush]="onClickNewAlert" ><ion-icon name="add"></ion-icon></button>
   </ion-fab>
 </ion-content>

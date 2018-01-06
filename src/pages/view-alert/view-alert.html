@@ -1,14 +1,14 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Create Alert</ion-title>
+    <ion-title>Edit Alert</ion-title>
   </ion-navbar>
 
 </ion-header>
 <ion-content padding>
   
     <ion-list>
-      <form (ngSubmit)="saveAlert()">
+      <form (ngSubmit)="editAlert()">
       <ion-item>
         <ion-label color="primary">Alert Name</ion-label>
         <ion-input [(ngModel)]="name"  name="name" placeholder="Alert name"></ion-input>
@@ -55,10 +55,11 @@
         </ion-item>
       </ion-item-group>
 
-      <button ion-button block type="submit">Save</button>
+      <button ion-button block type="submit">Update</button>
 
     </form>
     </ion-list>
  
 
 </ion-content>
+

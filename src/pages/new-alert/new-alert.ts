@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { LocationProvider } from '../../providers/location/location'
 /**
  * Generated class for the NewAlertPage page.
  *
@@ -14,12 +14,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'new-alert.html',
 })
 export class NewAlertPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  latitude: number;
+  longitude: number;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private locationProvider: LocationProvider) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NewAlertPage');
+  ionViewWillEnter() {
+    console.log('Loading Current Location');
+    this.locationProvider.getLocation()
+    .subscribe(location =>{
+      this.latitude = location.coords.latitude;
+      this.longitude = location.coords.longitude;
+      console.log(location);
+    });
   }
+
 
 }

@@ -64,6 +64,7 @@ export class NewAlertPage {
       phone3: this.phone3,
       message: this.message,
       distance: 0,
+      isWaiting:false,
       status: true
     }
     this.alerts.push(newAlert);

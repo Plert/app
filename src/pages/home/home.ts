@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import { ViewAlertPage } from '../view-alert/view-alert';
 import { SmsProvider } from '../../providers/sms/sms';
 import { LocationProvider } from '../../providers/location/location'
+import { Events } from 'ionic-angular';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -16,7 +17,8 @@ export class HomePage {
   constructor(public navCtrl: NavController,
   private storage: Storage,
   private sms:SmsProvider,
-  public locationTracker:LocationProvider) {
+  public locationTracker:LocationProvider,
+  public events: Events) {
 
     this.onClickNewAlert = NewAlertPage;
 
@@ -34,7 +36,13 @@ export class HomePage {
       console.log(this.alerts)
     });
 
+    events.subscribe('location:updated', (location, time) => {
+      // user and time are the same arguments passed in `events.publish(user, time)`
+      this.updateDistance();
+    });
+
   }
+  
 
   updateAlerts(){
     // Set to storage

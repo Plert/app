@@ -1,6 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation'
+import { Events } from 'ionic-angular';
 import 'rxjs/add/operator/filter';
 
 @Injectable()
@@ -13,7 +14,8 @@ export class LocationProvider {
 
   constructor(public zone: NgZone, 
     private geolocation: Geolocation,
-    private backgroundGeolocation: BackgroundGeolocation) {
+    private backgroundGeolocation: BackgroundGeolocation,
+    public events: Events) {
     console.log("LocationProvider loaded");
   }
 
@@ -48,6 +50,7 @@ export class LocationProvider {
       this.zone.run(() => {
         this.lat = location.latitude;
         this.lng = location.longitude;
+        this.events.publish('location:updated', [this.lat,this.lng], Date.now());
       });
 
     }, (err) => {
@@ -75,6 +78,7 @@ export class LocationProvider {
       this.zone.run(() => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
+        this.events.publish('location:updated', [this.lat,this.lng], Date.now());
       });
 
     });

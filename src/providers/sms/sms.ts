@@ -15,7 +15,12 @@ export class SmsProvider {
       console.log("Sending to "+phone);
       console.log(message);
       if(phone != undefined){
-        this.sms.send(phone,message);
+        this.sms.send(phone,message,{
+          replaceLineBreaks: true,
+          android:{
+            intent:''
+          }
+        });
       }
     }
   }

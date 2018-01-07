@@ -80,6 +80,17 @@ export class HomePage {
       alert.distance = this.calculateDistance(
         [alert.latitude,alert.longitude],
         [this.locationTracker.lat,this.locationTracker.lng]);
+
+      if(alert.status && alert.distance < 50 && alert.isWaiting){
+        // send notification
+        this.sendAlert(alert);
+      }
+      
+      if(alert.distance > 50){
+        alert.isWaiting = true;
+      }else{
+        alert.isWaiting = false;
+      }
     }
   }
 

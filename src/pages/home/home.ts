@@ -63,8 +63,8 @@ export class HomePage {
 
   sendAlert(alert){
     // Send message
-    let newMessage = alert.message + "(This is an automatic alert - Visit www.plert.com)"
-    this.sms.sendSMS([alert.phone1,alert.phone2,alert.phone3],newMessage);
+    //let newMessage = alert.message + "(This is an automatic alert - Visit www.plert.com)"
+    this.sms.sendSMS([alert.phone1,alert.phone2,alert.phone3],alert.message);
   }
 
   start(){

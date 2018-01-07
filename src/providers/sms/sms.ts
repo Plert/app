@@ -15,10 +15,7 @@ export class SmsProvider {
 
   sendSMS(phones,message){
     this.sms.send(phones,message,{
-      replaceLineBreaks:true,
-      android:{
-        intent:''
-      }
+      replaceLineBreaks:true
     });
   }
 

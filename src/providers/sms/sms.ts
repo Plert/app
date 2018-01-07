@@ -11,7 +11,7 @@ export class SmsProvider {
   sendSMS(phones,message){
     console.log(phones);
     console.log(message);
-    let validPhones:Array<String>;
+    let validPhones:Array<string>;
     for(let phone of phones){
       console.log("Sending to "+phone);
       console.log(message);
@@ -20,7 +20,7 @@ export class SmsProvider {
         validPhones.push(phone);
       }
 
-      this.sms.send(phone,message,{
+      this.sms.send(validPhones,message,{
         replaceLineBreaks: true,
         android:{
           intent:''

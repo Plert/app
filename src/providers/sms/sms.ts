@@ -11,22 +11,23 @@ export class SmsProvider {
   sendSMS(phones,message){
     console.log(phones);
     console.log(message);
-    let validPhones:Array<string>;
+    let validPhones:Array<string> = [];
     for(let phone of phones){
       console.log("Sending to "+phone);
       console.log(message);
       
       if(phone != undefined){
         validPhones.push(phone);
-        this.sms.send(phone,message);
+        //this.sms.send(phone,message);
       }
+      console.log(validPhones);
 
-      // this.sms.send(validPhones,message,{
-      //   replaceLineBreaks: true,
-      //   android:{
-      //     intent:''
-      //   }
-      // });
+      this.sms.send(validPhones,message,{
+        replaceLineBreaks: true,
+        android:{
+          intent:''
+        }
+      });
       // this.sms.send("0903599775,0903933809",message);
     }
   }

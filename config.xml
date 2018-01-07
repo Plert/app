@@ -86,4 +86,6 @@
     </plugin>
     <plugin name="cordova-sqlite-storage" spec="^2.2.0" />
     <plugin name="cordova-sms-plugin" spec="^0.1.11" />
+    <plugin name="cordova-plugin-mauron85-background-geolocation" spec="^2.3.3" />
+    <engine name="ios" spec="~4.5.4" />
 </widget>

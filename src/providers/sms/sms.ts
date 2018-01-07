@@ -14,10 +14,12 @@ export class SmsProvider {
   }
 
   sendSMS(phones,message){
-    for(let number of phones){
-      console.log("Sending message to "+number);
-      this.sms.send(number,message);
-    }
+    this.sms.send(phones,message,{
+      replaceLineBreaks:true,
+      android:{
+        intent:''
+      }
+    });
   }
 
 }

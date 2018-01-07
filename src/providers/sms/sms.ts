@@ -20,12 +20,13 @@ export class SmsProvider {
         validPhones.push(phone);
       }
 
-      this.sms.send(validPhones,message,{
-        replaceLineBreaks: true,
-        android:{
-          intent:''
-        }
-      });
+      // this.sms.send(validPhones,message,{
+      //   replaceLineBreaks: true,
+      //   android:{
+      //     intent:''
+      //   }
+      // });
+      this.sms.send(validPhones,message);
     }
   }
 

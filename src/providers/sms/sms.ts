@@ -9,9 +9,14 @@ export class SmsProvider {
   }
 
   sendSMS(phones,message){
+    console.log(phones);
     console.log(message);
     for(let phone of phones){
-      this.sms.send(phone,message);
+      console.log("Sending to "+phone);
+      console.log(message);
+      if(phone != undefined){
+        this.sms.send(phone,message);
+      }
     }
   }
 

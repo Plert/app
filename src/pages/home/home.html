@@ -22,8 +22,8 @@
       </ion-item-options>
     </ion-item-sliding>
 
-    <input [ngModel]="locationTracker.lat" (ngModelChange)="updateDistance()">
-    <input [ngModel]="locationTracker.lng" (ngModelChange)="updateDistance()">
+    <input [ngModel]="locationTracker.lat" (change)="updateDistance()">
+    <input [ngModel]="locationTracker.lng" (change)="updateDistance()">
     
   </ion-list>
   <ion-fab right bottom>

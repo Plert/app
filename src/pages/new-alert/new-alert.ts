@@ -63,6 +63,7 @@ export class NewAlertPage {
       phone2: this.phone2,
       phone3: this.phone3,
       message: this.message,
+      distance: 0,
       status: true
     }
     this.alerts.push(newAlert);

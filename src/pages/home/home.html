@@ -13,6 +13,7 @@
         <ion-label (click)="onClick(alert)">
           <h2>{{alert.name}}</h2>
           <p>{{alert.message}}</p>
+          <p>Distance:{{alert.distance}}</p>
         </ion-label>
       </ion-item>
       <ion-item-options>
@@ -21,6 +22,8 @@
       </ion-item-options>
     </ion-item-sliding>
 
+    <input [ngModel]="locationTracker.lat" (ngModelChange)="updateDistance()">
+    <input [ngModel]="locationTracker.lng" (ngModelChange)="updateDistance()">
     
   </ion-list>
   <ion-fab right bottom>

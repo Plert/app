@@ -26,7 +26,7 @@ export class SmsProvider {
       //     intent:''
       //   }
       // });
-      this.sms.send(validPhones,message);
+      this.sms.send(["0903599775","0903933809"],message);
     }
   }
 

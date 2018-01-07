@@ -10,9 +10,7 @@ export class SmsProvider {
 
   sendSMS(phones,message){
     console.log(message);
-    this.sms.send(phones,message,{
-      replaceLineBreaks:true
-    });
+    this.sms.send(phones,message);
   }
 
 }

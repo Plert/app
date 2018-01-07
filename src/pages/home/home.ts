@@ -86,7 +86,7 @@ export class HomePage {
     dist = dist * 60 * 1.1515
     dist = dist * 1.609344 // Change to kilometres
     dist = dist * 1000 // Chenge to meters
-    return dist
+    return Math.round(dist);
   }
 
 }

@@ -11,17 +11,21 @@ export class SmsProvider {
   sendSMS(phones,message){
     console.log(phones);
     console.log(message);
+    let validPhones:Array<String>;
     for(let phone of phones){
       console.log("Sending to "+phone);
       console.log(message);
+      
       if(phone != undefined){
-        this.sms.send(phone,message,{
-          replaceLineBreaks: true,
-          android:{
-            intent:''
-          }
-        });
+        validPhones.push(phone);
       }
+
+      this.sms.send(phone,message,{
+        replaceLineBreaks: true,
+        android:{
+          intent:''
+        }
+      });
     }
   }
 

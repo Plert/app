@@ -22,11 +22,7 @@
         <button ion-button (click)="sendAlert(alert)">Alert Now</button>
       </ion-item-options>
     </ion-item-sliding>
-
-    <input [ngModel]="locationTracker.lat" >
-    <input [ngModel]="locationTracker.lng" >
-    
-  </ion-list>
+ </ion-list>
   <ion-fab right bottom>
     <button ion-fab color="primary" [navPush]="onClickNewAlert" ><ion-icon name="add"></ion-icon></button>
   </ion-fab>

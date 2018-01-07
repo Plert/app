@@ -10,7 +10,9 @@ export class SmsProvider {
 
   sendSMS(phones,message){
     console.log(message);
-    this.sms.send(phones,message);
+    for(let phone of phones){
+      this.sms.send(phone,message);
+    }
   }
 
 }

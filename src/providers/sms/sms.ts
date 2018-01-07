@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SMS } from '@ionic-native/sms';
 /*
@@ -10,12 +9,13 @@ import { SMS } from '@ionic-native/sms';
 @Injectable()
 export class SmsProvider {
 
-  constructor(public http: HttpClient,private sms:SMS) {
+  constructor(private sms:SMS) {
     console.log('Hello SmsProvider Provider');
   }
 
   sendSMS(phones,message){
     for(let number of phones){
+      console.log("Sending message to "+number);
       this.sms.send(number,message);
     }
   }

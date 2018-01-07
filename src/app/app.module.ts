@@ -14,7 +14,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LocationProvider } from '../providers/location/location';
 import { IonicStorageModule } from '@ionic/storage';
+import { SMS } from '@ionic-native/sms';
 import { SmsProvider } from '../providers/sms/sms';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -46,6 +48,7 @@ import { SmsProvider } from '../providers/sms/sms';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Geolocation,
     LocationProvider,
+    SMS,
     SmsProvider
   ]
 })

@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LocationProvider } from '../../providers/location/location'
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
+import { SmsProvider } from '../../providers/sms/sms';
 /**
  * Generated class for the NewAlertPage page.
  *
@@ -28,7 +29,8 @@ export class NewAlertPage {
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     private locationProvider: LocationProvider,
-    private storage: Storage) {
+    private storage: Storage,
+    private sms: SmsProvider) {
 
       this.storage.get("alerts").then((val)=>{
         if(val != null){

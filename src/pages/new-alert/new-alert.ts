@@ -40,7 +40,10 @@ export class NewAlertPage {
 
       //Get phone contacts
       console.log("Getting phone contacts");
-      this.contacts.getPhoneContacts();
+      this.contacts.getPhoneContacts().then((data:Contact[]) => {
+        console.log("Phones Contacts loaded");
+        this.phoneContacts = data;
+      });;
   }
 
   ionViewWillEnter() {

@@ -33,7 +33,7 @@
           <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>  
           <ion-list *ngSwitchCase="'phone'">
             
-            <ion-item *ngFor="let phone of contacts.phoneContacts">
+            <ion-item *ngFor="let phone of phoneContacts">
               <ion-avatar item-start>
                   <img src="img/slimer.png">
               </ion-avatar>

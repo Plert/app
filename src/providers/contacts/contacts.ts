@@ -8,13 +8,7 @@ export class ContactsProvider {
   constructor(private contacts: Contacts) { }
 
   getPhoneContacts(){
-
-    this.contacts.find(['displayName', 'name', 'phoneNumbers'], {filter: "", multiple: true})
-    .then((data:Contact[]) => {
-      // console.log("Phones loaded");
-      this.phoneContacts = data;
-      return data
-    });
+    return this.contacts.find(['displayName', 'name', 'phoneNumbers'], {filter: "", multiple: true});
   }
 
 }

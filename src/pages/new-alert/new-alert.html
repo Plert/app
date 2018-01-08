@@ -17,14 +17,23 @@
       <ion-item-group>
         <br>
         <ion-item-divider>Notify to:</ion-item-divider>
-        <div padding>
+
+        <ion-item *ngFor="let phone of phoneContactList">
+          <ion-avatar item-start>
+              <img src="{{phone.image}}">
+          </ion-avatar>
+          <ion-label>{{phone.name}}</ion-label>
+          <ion-checkbox color="primary" checked="false" item-end></ion-checkbox>
+        </ion-item>
+        
+        <!-- <div padding>
           <ion-segment [(ngModel)]="notificationType" [ngModelOptions]="{standalone: true}">
             <ion-segment-button value="phone">
               Phone
             </ion-segment-button>
-            <!-- <ion-segment-button value="facebook">
+            <ion-segment-button value="facebook">
               Facebook
-            </ion-segment-button> -->
+            </ion-segment-button> 
           </ion-segment>
         </div>
         
@@ -52,7 +61,7 @@
               <h2>Luna</h2>
             </ion-item>
           </ion-list>
-        </div>
+        </div> -->
 
         <ion-item>
           <ion-label color="primary">Phone 1</ion-label>

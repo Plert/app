@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 
 import { Contact } from '@ionic-native/contacts';
 import { ContactsProvider } from '../../providers/contacts/contacts'
+import { DomSanitizer } from '@angular/platform-browser';
 
 @IonicPage()
 @Component({
@@ -22,12 +23,13 @@ export class NewAlertPage {
   message:string;
 
   alerts:any;
-  phoneContacts:Contact[]=[];
+  phoneContactList = [];
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     private locationProvider: LocationProvider,
     private storage: Storage,
-    private contacts:ContactsProvider) {
+    private contacts:ContactsProvider,
+    private sanitizer: DomSanitizer) {
 
       this.storage.get("alerts").then((val)=>{
         if(val != null){
@@ -40,9 +42,22 @@ export class NewAlertPage {
 
       //Get phone contacts
       console.log("Getting phone contacts");
-      this.contacts.getPhoneContacts().then((data:Contact[]) => {
-        console.log("Phones Contacts loaded");
-        this.phoneContacts = data;
+      this.contacts.getPhoneContacts().then((contacts) => {
+        for (var i=0 ; i < contacts.length; i++){
+          if(contacts[i].displayName !== null) {
+            var contact = {};
+            contact["name"]   = contacts[i].displayName;
+            contact["number"] = contacts[i].phoneNumbers[0].value;
+            if(contacts[i].photos != null) {
+              console.log(contacts[i].photos);
+              contact["image"] = this.sanitizer.bypassSecurityTrustUrl(contacts[i].photos[0].value);
+              console.log(contact);
+            } else {
+              contact["image"] = "assets/dummy-profile-pic.png";
+            }
+            this.phoneContactList.push(contact);
+          }
+        }
       });;
   }
 

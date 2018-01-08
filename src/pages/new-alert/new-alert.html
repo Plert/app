@@ -33,11 +33,11 @@
           <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>  
           <ion-list *ngSwitchCase="'phone'">
             
-            <ion-item *ngFor="let phone of phoneContacts">
+            <ion-item *ngFor="let phone of phoneContactList">
               <ion-avatar item-start>
-                  <img src="img/slimer.png">
+                  <img src="{{phone.image}}">
               </ion-avatar>
-              <ion-label>{{phone.displayName()}}</ion-label>
+              <ion-label>{{phone.name}}</ion-label>
               <ion-checkbox color="primary" checked="false" item-end></ion-checkbox>
             </ion-item>
 

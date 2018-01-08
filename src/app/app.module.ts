@@ -23,6 +23,7 @@ import { SmsProvider } from '../providers/sms/sms';
 //Conctacts
 import { Contacts } from '@ionic-native/contacts';
 import { ContactsProvider } from '../providers/contacts/contacts';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @NgModule({

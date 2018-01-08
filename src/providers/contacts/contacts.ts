@@ -9,12 +9,12 @@ export class ContactsProvider {
 
   getPhoneContacts(){
 
-    // this.contacts.find(['displayName', 'name', 'phoneNumbers'], {filter: "", multiple: true})
-    // .then((data:Contact[]) => {
-    //   // console.log("Phones loaded");
-    //   this.phoneContacts = data;
-    //   return data
-    // });
+    this.contacts.find(['displayName', 'name', 'phoneNumbers'], {filter: "", multiple: true})
+    .then((data:Contact[]) => {
+      // console.log("Phones loaded");
+      this.phoneContacts = data;
+      return data
+    });
   }
 
 }

@@ -23,6 +23,7 @@ export class NewAlertPage {
 
   alerts:any;
   phoneContactList = [];
+  search = false;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     private locationProvider: LocationProvider,
@@ -41,6 +42,10 @@ export class NewAlertPage {
       //Get phone contacts
       console.log("Getting phone contacts");
       this.contacts.find(['displayName', 'phoneNumbers', 'photos'], {multiple: true, hasPhoneNumber: true}).then((contacts) => {
+        if(contacts.length == 0){
+          this.phoneContactList.push({"name": 'No Contacts found'}); 
+          this.search = false;    
+        }
         for (var i=0 ; i < contacts.length; i++){
           if(contacts[i].displayName !== null) {
             var contact = {};
@@ -56,6 +61,7 @@ export class NewAlertPage {
             this.phoneContactList.push(contact);
           }
         }
+        this.search = true;    
       });;
   }
 

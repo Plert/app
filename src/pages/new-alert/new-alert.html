@@ -18,7 +18,7 @@
         <br>
         <ion-item-divider>Notify to:</ion-item-divider>
 
-        <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>  
+        <ion-searchbar [hidden]="!search" (ionInput)="getItems($event)"></ion-searchbar>  
         <ion-list>
           <ion-item *ngFor="let phone of phoneContactList">
             <ion-avatar item-start>

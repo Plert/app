@@ -73,7 +73,11 @@ export class NewAlertPage {
         }
       }
       this.search = true;    
-    });;
+    },(err) => {
+      this.phoneContactList = [];
+      this.phoneContactList.push({"name": 'No Contacts found'}); 
+      this.search = false; 
+     });
   }
 
   saveAlert(){

@@ -3,9 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LocationProvider } from '../../providers/location/location'
 import { Storage } from '@ionic/storage';
 
-import { Contact } from '@ionic-native/contacts';
-import { ContactsProvider } from '../../providers/contacts/contacts'
 import { DomSanitizer } from '@angular/platform-browser';
+import { Contact, ContactField, ContactName, Contacts } from '@ionic-native/contacts';
 
 @IonicPage()
 @Component({
@@ -28,8 +27,7 @@ export class NewAlertPage {
     public navParams: NavParams, 
     private locationProvider: LocationProvider,
     private storage: Storage,
-    private contacts:ContactsProvider,
-    private sanitizer: DomSanitizer) {
+    private contacts: Contacts, private sanitizer: DomSanitizer) {
 
       this.storage.get("alerts").then((val)=>{
         if(val != null){
@@ -42,7 +40,7 @@ export class NewAlertPage {
 
       //Get phone contacts
       console.log("Getting phone contacts");
-      this.contacts.getPhoneContacts().then((contacts) => {
+      this.contacts.find(['displayName', 'phoneNumbers', 'photos'], {multiple: true, hasPhoneNumber: true}).then((contacts) => {
         for (var i=0 ; i < contacts.length; i++){
           if(contacts[i].displayName !== null) {
             var contact = {};

@@ -15,22 +15,58 @@
       </ion-item>
 
       <ion-item-group>
-        <br>  
-        <ion-item-divider>Location:</ion-item-divider>
-        <ion-item>
-          <ion-label color="primary">Latitude</ion-label>
-          <ion-input disabled="true" [(ngModel)]="latitude" name="latitude" color="primary"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label color="primary">Longitude</ion-label>
-          <ion-input disabled="true" [(ngModel)]="longitude" name="longitude"  color="primary"></ion-input>
-        </ion-item>
-      </ion-item-group>
-
-      <ion-item-group>
         <br>
         <ion-item-divider>Notify to:</ion-item-divider>
+        <div padding>
+          <ion-segment [(ngModel)]="notificationType" [ngModelOptions]="{standalone: true}">
+            <ion-segment-button value="phone">
+              Phone
+            </ion-segment-button>
+            <ion-segment-button value="facebook">
+              Facebook
+            </ion-segment-button>
+          </ion-segment>
+        </div>
+        
+        <div [ngSwitch]="notificationType">
+            
+          <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>  
+          <ion-list *ngSwitchCase="'phone'">
+            <ion-item>
+              <ion-avatar item-start>
+                  <img src="img/slimer.png">
+              </ion-avatar>
+              <ion-label>Contact1</ion-label>
+              <ion-checkbox color="primary" checked="false" item-end></ion-checkbox>
+            </ion-item>
+
+            <ion-item>
+              <ion-avatar item-start>
+                  <img src="img/slimer.png">
+              </ion-avatar>
+              <ion-label>Contact2</ion-label>
+              <ion-checkbox color="primary" checked="false" item-end></ion-checkbox>
+            </ion-item>
+
+              <ion-item>
+                <ion-avatar item-start>
+                    <img src="img/slimer.png">
+                </ion-avatar>
+                <ion-label>Contact3</ion-label>
+                <ion-checkbox color="primary" checked="false" item-end></ion-checkbox>
+              </ion-item>  
+          </ion-list>
+        
+          <ion-list *ngSwitchCase="'facebook'">
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img src="img/thumbnail-kitten-1.jpg">
+              </ion-thumbnail>
+              <h2>Luna</h2>
+            </ion-item>
+          </ion-list>
+        </div>
+
         <ion-item>
           <ion-label color="primary">Phone 1</ion-label>
           <ion-input type="number" [(ngModel)]="phone1" name="phone1"  placeholder=""></ion-input>
@@ -52,6 +88,20 @@
         <ion-item-divider>Message:</ion-item-divider>
         <ion-item>
           <ion-textarea [(ngModel)]="message" name="message"  placeholder="I arrive safe "></ion-textarea>
+        </ion-item>
+      </ion-item-group>
+
+      <ion-item-group>
+        <br>  
+        <ion-item-divider>Location:</ion-item-divider>
+        <ion-item>
+          <ion-label color="primary">Latitude</ion-label>
+          <ion-input disabled="true" [(ngModel)]="latitude" name="latitude" color="primary"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label color="primary">Longitude</ion-label>
+          <ion-input disabled="true" [(ngModel)]="longitude" name="longitude"  color="primary"></ion-input>
         </ion-item>
       </ion-item-group>
 

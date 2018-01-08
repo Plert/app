@@ -2,14 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LocationProvider } from '../../providers/location/location'
 import { Storage } from '@ionic/storage';
-import { HomePage } from '../home/home';
-import { SmsProvider } from '../../providers/sms/sms';
-/**
- * Generated class for the NewAlertPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -17,6 +9,7 @@ import { SmsProvider } from '../../providers/sms/sms';
   templateUrl: 'new-alert.html',
 })
 export class NewAlertPage {
+  notificationType: string = "phone";
   name:string;
   latitude: number;
   longitude: number;
@@ -29,8 +22,7 @@ export class NewAlertPage {
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     private locationProvider: LocationProvider,
-    private storage: Storage,
-    private sms: SmsProvider) {
+    private storage: Storage) {
 
       this.storage.get("alerts").then((val)=>{
         if(val != null){

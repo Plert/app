@@ -37,32 +37,7 @@ export class NewAlertPage {
         }else{
           this.alerts = [];
         }
-      });
-
-      //Get phone contacts
-      console.log("Getting phone contacts");
-      this.contacts.find(['displayName', 'phoneNumbers', 'photos'], {multiple: true, hasPhoneNumber: true}).then((contacts) => {
-        if(contacts.length == 0){
-          this.phoneContactList.push({"name": 'No Contacts found'}); 
-          this.search = false;    
-        }
-        for (var i=0 ; i < contacts.length; i++){
-          if(contacts[i].displayName !== null) {
-            var contact = {};
-            contact["name"]   = contacts[i].displayName;
-            contact["number"] = contacts[i].phoneNumbers[0].value;
-            if(contacts[i].photos != null) {
-              console.log(contacts[i].photos);
-              contact["image"] = this.sanitizer.bypassSecurityTrustUrl(contacts[i].photos[0].value);
-              console.log(contact);
-            } else {
-              contact["image"] = "assets/dummy-profile-pic.png";
-            }
-            this.phoneContactList.push(contact);
-          }
-        }
-        this.search = true;    
-      });;
+      });   
   }
 
   ionViewWillEnter() {
@@ -73,6 +48,31 @@ export class NewAlertPage {
       this.longitude = location.coords.longitude;
       console.log(location);
     });
+
+    //Get phone contacts
+    console.log("Getting phone contacts");
+    this.contacts.find(['displayName', 'phoneNumbers', 'photos'], {multiple: true, hasPhoneNumber: true}).then((contacts) => {
+      if(contacts.length == 0){
+        this.phoneContactList.push({"name": 'No Contacts found'}); 
+        this.search = false;    
+      }
+      for (var i=0 ; i < contacts.length; i++){
+        if(contacts[i].displayName !== null) {
+          var contact = {};
+          contact["name"]   = contacts[i].displayName;
+          contact["number"] = contacts[i].phoneNumbers[0].value;
+          if(contacts[i].photos != null) {
+            console.log(contacts[i].photos);
+            contact["image"] = this.sanitizer.bypassSecurityTrustUrl(contacts[i].photos[0].value);
+            console.log(contact);
+          } else {
+            contact["image"] = "assets/dummy-profile-pic.png";
+          }
+          this.phoneContactList.push(contact);
+        }
+      }
+      this.search = true;    
+    });;
   }
 
   saveAlert(){

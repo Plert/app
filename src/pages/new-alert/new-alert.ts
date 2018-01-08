@@ -3,6 +3,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LocationProvider } from '../../providers/location/location'
 import { Storage } from '@ionic/storage';
 
+import { Contact } from '@ionic-native/contacts';
+import { ContactsProvider } from '../../providers/contacts/contacts'
+
 @IonicPage()
 @Component({
   selector: 'page-new-alert',
@@ -19,10 +22,12 @@ export class NewAlertPage {
   message:string;
 
   alerts:any;
+  phoneContacts:Contact[]=[];
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     private locationProvider: LocationProvider,
-    private storage: Storage) {
+    private storage: Storage,
+    private contacts:ContactsProvider) {
 
       this.storage.get("alerts").then((val)=>{
         if(val != null){
@@ -32,6 +37,10 @@ export class NewAlertPage {
           this.alerts = [];
         }
       });
+
+      //Get phone contacts
+      console.log("Getting phone contacts");
+      this.contacts.getPhoneContacts();
   }
 
   ionViewWillEnter() {

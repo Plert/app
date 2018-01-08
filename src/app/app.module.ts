@@ -20,6 +20,11 @@ import { IonicStorageModule } from '@ionic/storage';
 import { SMS } from '@ionic-native/sms';
 import { SmsProvider } from '../providers/sms/sms';
 
+//Conctacts
+import { Contacts } from '@ionic-native/contacts';
+import { ContactsProvider } from '../providers/contacts/contacts';
+
+
 @NgModule({
   declarations: [
     MyApp,
@@ -53,7 +58,9 @@ import { SmsProvider } from '../providers/sms/sms';
     BackgroundGeolocation,
     Geolocation,
     SMS,
-    SmsProvider
+    SmsProvider,
+    Contacts,
+    ContactsProvider
   ]
 })
 export class AppModule {}

@@ -4,7 +4,7 @@ import { LocationProvider } from '../../providers/location/location'
 import { Storage } from '@ionic/storage';
 
 import { DomSanitizer } from '@angular/platform-browser';
-import { Contact, ContactField, ContactName, Contacts } from '@ionic-native/contacts';
+import { Contacts, ContactField, ContactName, ContactFieldType} from '@ionic-native/contacts';
 
 @IonicPage()
 @Component({
@@ -51,7 +51,8 @@ export class NewAlertPage {
 
     //Get phone contacts
     console.log("Getting phone contacts");
-    this.contacts.find(['displayName', 'phoneNumbers', 'photos'], {multiple: true, hasPhoneNumber: true}).then((contacts) => {
+    let fields:ContactFieldType[] = ['displayName', 'phoneNumbers', 'photos'];
+    this.contacts.find(fields, {multiple: true, hasPhoneNumber: true}).then((contacts) => {
       if(contacts.length == 0){
         this.phoneContactList.push({"name": 'No Contacts found'}); 
         this.search = false;    

@@ -21,11 +21,7 @@ export class SmsProvider {
         //this.sms.send(phone,message);
       }
       console.log(validPhones);
-
-      try
-      await:this.sms.send(validPhones,message,{
-        replaceLineBreaks: true
-      });
+   
     
     }
   }

@@ -37,7 +37,10 @@ export class NewAlertPage {
         }else{
           this.alerts = [];
         }
-      });   
+      });  
+
+      this.phoneContactList = [];
+      this.search = false;  
   }
 
   ionViewWillEnter() {
@@ -53,14 +56,16 @@ export class NewAlertPage {
     console.log("Getting phone contacts");
     let fields:ContactFieldType[] = ['displayName', 'phoneNumbers', 'photos'];
     this.contacts.find(fields, {multiple: true, hasPhoneNumber: true}).then((contacts) => {
+      console.log("Final Contacts");
       if(contacts.length == 0){
         this.phoneContactList.push({"name": 'No Contacts found'}); 
         this.search = false;    
       }
       for (var i=0 ; i < contacts.length; i++){
-        if(contacts[i].displayName !== null) {
+        console.log(contacts[i]);
+        if(contacts[i].name !== null) {
           var contact = {};
-          contact["name"]   = contacts[i].displayName;
+          contact["name"]   = contacts[i].name.formatted;
           contact["number"] = contacts[i].phoneNumbers[0].value;
           if(contacts[i].photos != null) {
             console.log(contacts[i].photos);
@@ -72,12 +77,17 @@ export class NewAlertPage {
           this.phoneContactList.push(contact);
         }
       }
+      console.log(this.phoneContactList);
       this.search = true;    
     },(err) => {
       this.phoneContactList = [];
       this.phoneContactList.push({"name": 'No Contacts found'}); 
       this.search = false; 
      });
+  }
+
+  getContacts(event){
+    console.log(event);
   }
 
   saveAlert(){

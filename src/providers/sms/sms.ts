@@ -22,11 +22,9 @@ export class SmsProvider {
       }
       console.log(validPhones);
 
-      this.sms.send(validPhones,message,{
-        replaceLineBreaks: true,
-        android:{
-          intent:''
-        }
+      try
+      await:this.sms.send(validPhones,message,{
+        replaceLineBreaks: true
       });
     
     }

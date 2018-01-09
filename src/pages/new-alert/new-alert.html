@@ -18,11 +18,16 @@
         <br>
         <ion-item-divider>Notify to:</ion-item-divider>
 
-        <ion-searchbar [hidden]="!search" (ionInput)="getItems($event)"></ion-searchbar>  
+        <ion-searchbar (ionInput)="getContacts($event)"></ion-searchbar>  
         <ion-list>
+
+          <ion-item *ngIf="!search">
+            <ion-label>No contacts found</ion-label>
+          </ion-item>
+
           <ion-item *ngFor="let phone of phoneContactList">
             <ion-avatar item-start>
-                <img src="{{phone.image}}">
+                <img [src]="phone.image">
             </ion-avatar>
             <ion-label>{{phone.name}}</ion-label>
             <ion-checkbox color="primary" checked="false" item-end></ion-checkbox>

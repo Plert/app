@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController} from 'ionic-angular';
 import { NewAlertPage } from '../new-alert/new-alert'
 import { Storage } from '@ionic/storage';
 import { ViewAlertPage } from '../view-alert/view-alert';
-import { SmsProvider } from '../../providers/sms/sms';
+import { SMS } from '@ionic-native/sms';
 import { LocationProvider } from '../../providers/location/location'
 import { Events } from 'ionic-angular';
 @Component({
@@ -15,8 +15,9 @@ export class HomePage {
   alerts:any;
 
   constructor(public navCtrl: NavController,
+  private toast:ToastController,
   private storage: Storage,
-  private sms:SmsProvider,
+  private sms:SMS,
   public locationTracker:LocationProvider,
   public events: Events) {
 
@@ -64,7 +65,40 @@ export class HomePage {
   sendAlert(alert){
     // Send message
     let newMessage = alert.message + "\n(This is an automatic alert - Visit www.plert.com)"
-    this.sms.sendSMS([alert.phone1,alert.phone2,alert.phone3],newMessage);
+    this.sendSMS([alert.phone1,alert.phone2,alert.phone3],newMessage);
+  }
+
+  async sendSMS(phones,message){
+    console.log(phones);
+    console.log(message);
+    let validPhones:Array<string> = [];
+    for(let phone of phones){
+      console.log("Sending to "+phone);
+      console.log(message);
+      
+      if(phone != undefined){
+        validPhones.push(phone);
+        //this.sms.send(phone,message);
+      }
+      console.log(validPhones);
+
+      try{
+        await this.sms.send(validPhones,message,{replaceLineBreaks: true});
+        const toast = this.toast.create({
+          message: "SMS sent",
+          duration: 3000
+        });
+        toast.present();
+      }catch(e){
+        console.log("Error sending SMS");
+        console.log(e);
+        const toast = this.toast.create({
+          message: "SMS not sent",
+          duration: 3000
+        });
+        toast.present();
+      }
+    }
   }
 
   start(){

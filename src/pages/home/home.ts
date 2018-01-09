@@ -77,7 +77,7 @@ export class HomePage {
       console.log(message);
       
       if(phone != undefined){
-        validPhones.push(phone);
+        validPhones.push(String(phone));
         //this.sms.send(phone,message);
       }
       console.log(validPhones);

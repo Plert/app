@@ -16,9 +16,11 @@ import { LocationProvider } from '../providers/location/location';
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 import { Geolocation } from '@ionic-native/geolocation';
 
+//SMS
 import { IonicStorageModule } from '@ionic/storage';
 import { SMS } from '@ionic-native/sms';
 import { SmsProvider } from '../providers/sms/sms';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 //Conctacts
 import { Contacts } from '@ionic-native/contacts';
@@ -60,6 +62,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     Geolocation,
     SMS,
     SmsProvider,
+    SocialSharing,
     Contacts,
     ContactsProvider
   ]

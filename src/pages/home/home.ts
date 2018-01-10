@@ -6,6 +6,8 @@ import { ViewAlertPage } from '../view-alert/view-alert';
 import { SMS } from '@ionic-native/sms';
 import { LocationProvider } from '../../providers/location/location'
 import { Events } from 'ionic-angular';
+import { SocialSharing } from '@ionic-native/social-sharing';
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -19,7 +21,8 @@ export class HomePage {
   private storage: Storage,
   private sms:SMS,
   public locationTracker:LocationProvider,
-  public events: Events) {
+  public events: Events,
+  private socialSharing:SocialSharing) {
 
     this.onClickNewAlert = NewAlertPage;
 
@@ -83,7 +86,8 @@ export class HomePage {
       console.log(validPhones);
 
       try{
-        await this.sms.send(validPhones,message,{replaceLineBreaks: true});
+        //await this.sms.send(validPhones,message,{replaceLineBreaks: true});
+        await this.socialSharing.shareViaSMS(message,validPhones.join());
         const toast = this.toast.create({
           message: "SMS sent",
           duration: 3000
@@ -110,6 +114,7 @@ export class HomePage {
   }
 
   updateDistance(){
+    console.log("Distance updated")
     for(let alert of this.alerts){
       alert.distance = this.calculateDistance(
         [alert.latitude,alert.longitude],
@@ -117,7 +122,7 @@ export class HomePage {
 
       if(alert.status && alert.distance < 50 && alert.isWaiting){
         // send notification
-        this.sendAlert(alert);
+        this.sendAlert(alert); 
       }
       
       if(alert.distance > 50){

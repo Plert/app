@@ -37,8 +37,8 @@ export class LocationProvider {
     let config = {
       desiredAccuracy: 0,
       stationaryRadius: 20,
-      distanceFilter: 10,
-      debug: true,
+      distanceFilter: 50,
+      debug: false,
       interval: 2000
     };
 

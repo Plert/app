@@ -18,7 +18,7 @@
         <br>
         <ion-item-divider>Notify to:</ion-item-divider>
 
-        <ion-searchbar (ionInput)="getContacts($event)"></ion-searchbar>  
+        <ion-searchbar [(ngModel)]="queryContact" [ngModelOptions]="{standalone:true}" (ionInput)="getContacts($event)"></ion-searchbar>  
         <ion-list>
 
           <ion-item *ngIf="!search">
@@ -26,11 +26,11 @@
           </ion-item>
 
           <ion-item *ngFor="let phone of phoneContactList">
-            <ion-avatar item-start>
+            <!-- <ion-avatar item-start>
                 <img [src]="phone.image">
-            </ion-avatar>
+            </ion-avatar> -->
             <ion-label>{{phone.name}}</ion-label>
-            <ion-checkbox color="primary" checked="false" item-end></ion-checkbox>
+            <ion-checkbox (ionChange)="onChangeContact(phone.number, $event.checked)" color="primary" checked="{{selectedPhones.includes(phone.number)}}" item-end></ion-checkbox>
           </ion-item>
         </ion-list>    
         <!-- <div padding>
@@ -70,7 +70,7 @@
           </ion-list>
         </div> -->
 
-        <ion-item>
+        <!-- <ion-item>
           <ion-label color="primary">Phone 1</ion-label>
           <ion-input type="number" [(ngModel)]="phone1" name="phone1"  placeholder=""></ion-input>
         </ion-item>
@@ -83,7 +83,7 @@
         <ion-item>
           <ion-label color="primary">Phone 3</ion-label>
           <ion-input type="number" [(ngModel)]="phone3" name="phone3" placeholder=""></ion-input>
-        </ion-item>
+        </ion-item> -->
       </ion-item-group>
 
       <ion-item-group>

@@ -76,32 +76,31 @@ export class HomePage {
     console.log(message);
     let validPhones:Array<string> = [];
     for(let phone of phones){
-      console.log("Sending to "+phone);
-      console.log(message);
-      
       if(phone != undefined){
         validPhones.push(String(phone));
         //this.sms.send(phone,message);
       }
+      console.log("Valid phones");
       console.log(validPhones);
+    }
 
-      try{
-        //await this.sms.send(validPhones,message,{replaceLineBreaks: true});
-        await this.socialSharing.shareViaSMS(message,validPhones.join());
-        const toast = this.toast.create({
-          message: "SMS sent",
-          duration: 3000
-        });
-        toast.present();
-      }catch(e){
-        console.log("Error sending SMS");
-        console.log(e);
-        const toast = this.toast.create({
-          message: "SMS not sent",
-          duration: 3000
-        });
-        toast.present();
-      }
+    try{
+      //await this.sms.send(validPhones,message,{replaceLineBreaks: true});
+      console.log("Trying to send SMS to: " + validPhones.join());
+      await this.socialSharing.shareViaSMS(message,validPhones.join());
+      const toast = this.toast.create({
+        message: "SMS sent",
+        duration: 3000
+      });
+      toast.present();
+    }catch(e){
+      console.log("Error sending SMS");
+      console.log(e);
+      const toast = this.toast.create({
+        message: "SMS not sent",
+        duration: 3000
+      });
+      toast.present();
     }
   }
 

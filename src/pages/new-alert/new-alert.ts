@@ -16,13 +16,12 @@ export class NewAlertPage {
   name:string;
   latitude: number;
   longitude: number;
-  phone1: string;
-  phone2: string;
-  phone3: string;
   message:string;
 
   alerts:any;
   phoneContactList = [];
+  queryContact:string ="";
+  selectedPhones = [];
   search = false;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
@@ -52,15 +51,16 @@ export class NewAlertPage {
       console.log(location);
     });
 
+    this.findContacts("");
+  }
+
+  findContacts(query){
     //Get phone contacts
-    console.log("Getting phone contacts");
-    let fields:ContactFieldType[] = ['displayName', 'phoneNumbers', 'photos'];
-    this.contacts.find(fields, {multiple: true, hasPhoneNumber: true}).then((contacts) => {
+    this.phoneContactList = [];
+    console.log("Getting phone contacts :"+query);
+    let fields:ContactFieldType[] = ['displayName', 'phoneNumbers', 'photos','name'];
+    this.contacts.find(fields,{filter: query, multiple: true, hasPhoneNumber: true}).then((contacts) => {
       console.log("Final Contacts");
-      if(contacts.length == 0){
-        this.phoneContactList.push({"name": 'No Contacts found'}); 
-        this.search = false;    
-      }
       for (var i=0 ; i < contacts.length; i++){
         console.log(contacts[i]);
         if(contacts[i].name !== null) {
@@ -81,13 +81,29 @@ export class NewAlertPage {
       this.search = true;    
     },(err) => {
       this.phoneContactList = [];
-      this.phoneContactList.push({"name": 'No Contacts found'}); 
       this.search = false; 
      });
   }
 
   getContacts(event){
     console.log(event);
+    console.log(this.queryContact);
+    this.findContacts(this.queryContact);
+  }
+
+  onChangeContact(phone,isChecked){
+    if(isChecked){
+      //Add phone to list
+      this.selectedPhones.push(String(phone));
+    }else{
+      //remove from list
+      let index = this.selectedPhones.indexOf(String(phone));
+      if(index > -1){
+        this.selectedPhones.splice(index,1);
+      }
+    }
+    console.log("Total Phones");
+    console.log(this.selectedPhones);
   }
 
   saveAlert(){
@@ -97,9 +113,7 @@ export class NewAlertPage {
       name: this.name,
       latitude: this.latitude,
       longitude: this.longitude,
-      phone1: this.phone1,
-      phone2: this.phone2,
-      phone3: this.phone3,
+      phones:this.selectedPhones,
       message: this.message,
       distance: 0,
       isWaiting:false,

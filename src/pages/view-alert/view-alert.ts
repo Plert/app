@@ -43,12 +43,11 @@ export class ViewAlertPage {
         this.alerts = [];
       }
     });
-
-    this.findContacts("");
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViewAlertPage');
+    this.findContacts("");
   }
 
   findContacts(query){

@@ -12,7 +12,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpClient } from '@angular/common/http';
-
+import { HTTP } from '@ionic-native/http';
 // Location
 import { LocationProvider } from '../providers/location/location';
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
@@ -58,6 +58,7 @@ import { FbAuthProvider } from '../providers/fb-auth/fb-auth';
     ViewAlertPage
   ],
   providers: [
+    HTTP,
     HttpClient,
     StatusBar,
     SplashScreen,

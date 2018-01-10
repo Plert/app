@@ -8,7 +8,7 @@
   "proxies": [
     {
       "path": "/smsApi",
-      "proxyUrl": "https://api.wavecell.com/sms/v1/placealert_3dDFE_hq/many/compact"
+      "proxyUrl": "https://api.wavecell.com/sms/v1"
     }
   ]
 }

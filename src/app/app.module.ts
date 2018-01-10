@@ -1,6 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -10,6 +11,7 @@ import { ViewAlertPage } from '../pages/view-alert/view-alert';
 import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { HttpClient } from '@angular/common/http';
 
 // Location
 import { LocationProvider } from '../providers/location/location';
@@ -26,6 +28,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { Contacts } from '@ionic-native/contacts';
 import { ContactsProvider } from '../providers/contacts/contacts';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FbAuthProvider } from '../providers/fb-auth/fb-auth';
 
 
 @NgModule({
@@ -41,7 +44,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -54,6 +58,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     ViewAlertPage
   ],
   providers: [
+    HttpClient,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
@@ -64,7 +69,8 @@ import { DomSanitizer } from '@angular/platform-browser';
     SmsProvider,
     SocialSharing,
     Contacts,
-    ContactsProvider
+    ContactsProvider,
+    FbAuthProvider
   ]
 })
 export class AppModule {}

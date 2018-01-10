@@ -6,16 +6,16 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-card (click)="onClick(alert)" *ngFor="let alert of alerts">
-          <ion-item>
+    <ion-card *ngFor="let alert of alerts">
+          <ion-item (click)="onClick(alert)" >
             <h2>{{alert.name}} <span ion-text right color="secondary" class="item-bold">({{alert.distance}} m)</span></h2>
             
           </ion-item>
-          <ion-item>
+          <ion-item (click)="onClick(alert)" >
             <ion-icon color="subtle" item-start name='text'></ion-icon>
             <p>{{alert.message}}</p>
           </ion-item>
-          <ion-item>
+          <ion-item (click)="onClick(alert)" >
               <ion-icon color="subtle" item-start name='people'></ion-icon>
               <p>{{alert.phones.length}}</p>
             </ion-item>

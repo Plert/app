@@ -7,6 +7,7 @@ import { SMS } from '@ionic-native/sms';
 import { LocationProvider } from '../../providers/location/location'
 import { Events } from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { SmsProvider } from '../../providers/sms/sms';
 
 @Component({
   selector: 'page-home',
@@ -22,7 +23,8 @@ export class HomePage {
   private sms:SMS,
   public locationTracker:LocationProvider,
   public events: Events,
-  private socialSharing:SocialSharing) {
+  private socialSharing:SocialSharing,
+  private smsProvider:SmsProvider) {
 
     this.onClickNewAlert = NewAlertPage;
 
@@ -70,7 +72,21 @@ export class HomePage {
   sendAlert(alert){
     // Send message
     let newMessage = alert.message + "\n(This is an automatic alert - Visit www.plert.com)"
-    this.sendSMS(alert.phones,newMessage);
+    //this.sendSMS(alert.phones,newMessage);
+    this.sendByAPI(alert.phones,newMessage);
+  }
+
+  sendByAPI(phones,message){
+    let validPhones:Array<string> = [];
+    for(let phone of phones){
+      if(phone != undefined){
+        validPhones.push(String(phone));
+        //this.sms.send(phone,message);
+      }
+      console.log("Valid phones");
+      console.log(validPhones);
+    }
+    this.smsProvider.sendByAPI(validPhones,message);
   }
 
   async sendSMS(phones,message){

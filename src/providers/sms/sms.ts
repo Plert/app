@@ -29,7 +29,7 @@ export class SmsProvider {
   // }
 
   sendByAPI(phones,message){
-    let url = "https://api.wavecell.com/sms/v1/placealert_3dDFE_hq/many/compact";
+    let url = "/smsApi/";
     let key = "GqiacjegdD0c1Va9tXesR8EEO0ZrHK7FD8luC7mSh0";
 
     let body =  {
@@ -47,7 +47,9 @@ export class SmsProvider {
     this.http.post(url,body,{
       headers: { 'Authorization': 'Bearer '+key,
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'}
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+      'Content-Type':'application/json'
+    }
     }).subscribe(
         res => {
           console.log("SMS sent")
@@ -60,6 +62,7 @@ export class SmsProvider {
         },
         err => {
           console.log("Error occured");
+          console.log(err);
           const toast = this.toast.create({
             message: "SMS not sent",
             duration: 3000

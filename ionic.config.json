@@ -4,5 +4,11 @@
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "proxies": [
+    {
+      "path": "/smsApi",
+      "proxyUrl": "https://api.wavecell.com/sms/v1/placealert_3dDFE_hq/many/compact"
+    }
+  ]
 }

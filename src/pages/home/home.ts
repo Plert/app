@@ -27,6 +27,8 @@ export class HomePage {
     this.onClickNewAlert = NewAlertPage;
 
     this.storage.get("alerts").then((val)=>{
+      console.log("Gettign alerts from storage");
+      console.log(val);
       if(val != null){
         // Set alerts array
         this.alerts = JSON.parse(val);

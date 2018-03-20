@@ -32,7 +32,6 @@
     "@ionic/pro": "1.0.16",
     "@ionic/storage": "^2.1.3",
     "cordova-android": "~7.0.0",
-    "cordova-ios": "~4.5.4",
     "cordova-plugin-advanced-http": "^1.9.1",
     "cordova-plugin-contacts": "^3.0.1",
     "cordova-plugin-device": "^1.1.4",
@@ -76,7 +75,6 @@
       "cordova-plugin-advanced-http": {}
     },
     "platforms": [
-      "ios",
       "android"
     ]
   }

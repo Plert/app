@@ -5,8 +5,9 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-card *ngFor="let alert of alerts">
+  <ion-scroll style="width:100%;height:100vh" scrollY="true">
+  <ion-list  scroll="true" >
+    <ion-card *ngFor="let alert of alerts" >
           <ion-item (click)="onClick(alert)" >
             <h2>{{alert.name}} <span ion-text right color="secondary" class="item-bold">({{alert.distance}} m)</span></h2>
             
@@ -32,6 +33,7 @@
           </ion-item>
   </ion-card>
  </ion-list>
+ </ion-scroll>
   <ion-fab right bottom>
     <button ion-fab color="primary" [navPush]="onClickNewAlert" ><ion-icon name="add"></ion-icon></button>
   </ion-fab>

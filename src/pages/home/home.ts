@@ -139,6 +139,7 @@ export class HomePage {
 
       if(alert.status && alert.distance < 50 && alert.isWaiting){
         // send notification
+        alert.isWaiting = false;
         this.sendAlert(alert); 
       }
       

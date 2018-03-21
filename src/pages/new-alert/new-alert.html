@@ -15,6 +15,21 @@
       </ion-item>
 
       <ion-item-group>
+        <br>  
+        <ion-item-divider>Location:</ion-item-divider>
+        <div #map id="map">Map test</div> 
+        <ion-item>
+          <ion-label color="primary">Latitude</ion-label>
+          <ion-input disabled="true" [(ngModel)]="latitude" name="latitude" color="primary"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label color="primary">Longitude</ion-label>
+          <ion-input disabled="true" [(ngModel)]="longitude" name="longitude"  color="primary"></ion-input>
+        </ion-item>
+      </ion-item-group>
+
+      <ion-item-group>
         <br>
         <ion-item-divider>Notify to:</ion-item-divider>
 
@@ -33,80 +48,17 @@
             <ion-checkbox (ionChange)="onChangeContact(phone.number, $event.checked)" color="primary" checked="{{selectedPhones.includes(phone.number)}}" item-end></ion-checkbox>
           </ion-item>
         </ion-list>    
-        <!-- <div padding>
-          <ion-segment [(ngModel)]="notificationType" [ngModelOptions]="{standalone: true}">
-            <ion-segment-button value="phone">
-              Phone
-            </ion-segment-button>
-            <ion-segment-button value="facebook">
-              Facebook
-            </ion-segment-button> 
-          </ion-segment>
-        </div>
-        
-        <div [ngSwitch]="notificationType">
-            
-          <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>  
-          <ion-list *ngSwitchCase="'phone'">
-            
-            <ion-item *ngFor="let phone of phoneContactList">
-              <ion-avatar item-start>
-                  <img src="{{phone.image}}">
-              </ion-avatar>
-              <ion-label>{{phone.name}}</ion-label>
-              <ion-checkbox color="primary" checked="false" item-end></ion-checkbox>
-            </ion-item>
-
- 
-          </ion-list>
-        
-          <ion-list *ngSwitchCase="'facebook'">
-            <ion-item>
-              <ion-thumbnail item-start>
-                <img src="img/thumbnail-kitten-1.jpg">
-              </ion-thumbnail>
-              <h2>Luna</h2>
-            </ion-item>
-          </ion-list>
-        </div> -->
-
-        <!-- <ion-item>
-          <ion-label color="primary">Phone 1</ion-label>
-          <ion-input type="number" [(ngModel)]="phone1" name="phone1"  placeholder=""></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label color="primary">Phone 2</ion-label>
-          <ion-input type="number" [(ngModel)]="phone2" name="phone2" placeholder=""></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label color="primary">Phone 3</ion-label>
-          <ion-input type="number" [(ngModel)]="phone3" name="phone3" placeholder=""></ion-input>
-        </ion-item> -->
       </ion-item-group>
 
-      <ion-item-group>
+      <!-- <ion-item-group>
         <br>  
         <ion-item-divider>Message:</ion-item-divider>
         <ion-item>
           <ion-textarea [(ngModel)]="message" name="message"  placeholder="I arrive safe "></ion-textarea>
         </ion-item>
-      </ion-item-group>
+      </ion-item-group> -->
 
-      <ion-item-group>
-        <br>  
-        <ion-item-divider>Location:</ion-item-divider>
-        <ion-item>
-          <ion-label color="primary">Latitude</ion-label>
-          <ion-input disabled="true" [(ngModel)]="latitude" name="latitude" color="primary"></ion-input>
-        </ion-item>
 
-        <ion-item>
-          <ion-label color="primary">Longitude</ion-label>
-          <ion-input disabled="true" [(ngModel)]="longitude" name="longitude"  color="primary"></ion-input>
-        </ion-item>
-      </ion-item-group>
 
       <button ion-button block type="submit">Save</button>
 

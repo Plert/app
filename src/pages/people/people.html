@@ -15,7 +15,13 @@
 
 <ion-content padding>
   <ion-list>
-        <ion-row radio-group [(ngModel)]="addBy">
+      <ion-item text-center [navPush]="onClickProfile">
+          <ion-avatar item-start>
+              <img src="assets/imgs/me.png">
+          </ion-avatar>
+          <ion-label>Eduardo Salazar</ion-label>
+      </ion-item>
+        <!-- <ion-row radio-group [(ngModel)]="addBy">
         <ion-col>
           <ion-item>
             Search By
@@ -33,11 +39,10 @@
             <ion-radio value="2"></ion-radio>
           </ion-item>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
      
     <ion-searchbar #searchbar placeholder="Search"></ion-searchbar>
     <br/>
-    <ion-item-divider></ion-item-divider>
 
     <ion-item>
       <ion-avatar item-start>

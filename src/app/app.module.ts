@@ -19,6 +19,8 @@ import { LocationProvider } from '../providers/location/location';
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 import { Geolocation } from '@ionic-native/geolocation';
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
+//People
+import { ProfilePage } from '../pages/profile/profile';
 //SMS
 import { IonicStorageModule } from '@ionic/storage';
 import { SMS } from '@ionic-native/sms';
@@ -41,7 +43,8 @@ import { FbAuthProvider } from '../providers/fb-auth/fb-auth';
     TabsPage,
     NewAlertPage,
     ViewAlertPage,
-    PeoplePage
+    PeoplePage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +61,8 @@ import { FbAuthProvider } from '../providers/fb-auth/fb-auth';
     TabsPage,
     NewAlertPage,
     ViewAlertPage,
-    PeoplePage
+    PeoplePage,
+    ProfilePage
   ],
   providers: [
     HTTP,

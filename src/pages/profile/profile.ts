@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ProfilePage } from '../profile/profile';
+
 /**
- * Generated class for the PeoplePage page.
+ * Generated class for the ProfilePage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,18 +10,16 @@ import { ProfilePage } from '../profile/profile';
 
 @IonicPage()
 @Component({
-  selector: 'page-people',
-  templateUrl: 'people.html',
+  selector: 'page-profile',
+  templateUrl: 'profile.html',
 })
-export class PeoplePage {
-  addBy:any;
-  onClickProfile:any;
+export class ProfilePage {
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.onClickProfile = ProfilePage;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PeoplePage');
+    console.log('ionViewDidLoad ProfilePage');
   }
 
 }

@@ -1,0 +1,18 @@
+page-profile {
+    .avatar{
+        width:150px;
+        height:150px;
+        margin: 5px;
+        padding: 0;
+        overflow: hidden;
+        border-radius:50%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        float: left;
+        position: relative;
+        border: 3px solid rgba(247,118,0,0.8);
+        box-shadow: 1px 1px 4px 0px rgba(242,129,35,0.75) inset;
+        -moz-box-shadow: 1px 1px 4px 0px rgba(242,129,35,0.75)  inset;
+        -webkit-box-shadow: 1px 1px 4px 0px rgba(242,129,35,0.75)  inset;
+      }
+}

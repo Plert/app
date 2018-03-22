@@ -8,7 +8,7 @@ import { LocationProvider } from '../../providers/location/location'
 import { Events } from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { SmsProvider } from '../../providers/sms/sms';
-
+import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -16,7 +16,7 @@ import { SmsProvider } from '../../providers/sms/sms';
 export class HomePage {
   onClickNewAlert: any;
   alerts:any;
-
+  avatarClasses: string = 'avatar';
   constructor(public navCtrl: NavController,
   private toast:ToastController,
   private storage: Storage,
@@ -24,7 +24,8 @@ export class HomePage {
   public locationTracker:LocationProvider,
   public events: Events,
   private socialSharing:SocialSharing,
-  private smsProvider:SmsProvider) {
+  private smsProvider:SmsProvider,
+  private launchNavigator: LaunchNavigator) {
 
     this.onClickNewAlert = NewAlertPage;
 
@@ -74,6 +75,11 @@ export class HomePage {
     let newMessage = alert.message + "\n(This is an automatic alert - Visit www.plert.com)"
     //this.sendSMS(alert.phones,newMessage);
     this.sendByAPI(alert.phones,newMessage);
+  }
+
+  navigateTo(alert){
+    // Send to luncher
+    this.launchNavigator.navigate([alert.latitude,alert.longitude]);
   }
 
   sendByAPI(phones,message){

@@ -39,7 +39,7 @@ export class LocationProvider {
       stationaryRadius: 20,
       distanceFilter: 50,
       debug: false,
-      interval: 2000
+      interval: 60000
     };
 
     this.backgroundGeolocation.configure(config).subscribe((location) => {

@@ -18,7 +18,7 @@ import { HTTP } from '@ionic-native/http';
 import { LocationProvider } from '../providers/location/location';
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 import { Geolocation } from '@ionic-native/geolocation';
-
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
 //SMS
 import { IonicStorageModule } from '@ionic/storage';
 import { SMS } from '@ionic-native/sms';
@@ -67,6 +67,7 @@ import { FbAuthProvider } from '../providers/fb-auth/fb-auth';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LocationProvider,
+    LaunchNavigator,
     BackgroundGeolocation,
     Geolocation,
     SMS,

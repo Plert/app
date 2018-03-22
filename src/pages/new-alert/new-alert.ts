@@ -254,7 +254,7 @@ export class NewAlertPage {
     }else{
       console.log("Outside Radius");
       //Activate Plert alert
-      let newAlert = {
+      newAlert = {
         id:Math.random().toString(36).substr(2, 9),
         name: this.name,
         latitude: this.latitude,

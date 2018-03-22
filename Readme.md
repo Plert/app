@@ -5,6 +5,9 @@ Notify your relative, friends when you arrive a location.
 This application is made in ionic so the process to run this
 app is:
 
+# Test in simulator
+ionic cordova emulate ios --livereload
+
 # Test in phone
 
 1. Build project

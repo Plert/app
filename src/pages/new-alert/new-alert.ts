@@ -2,8 +2,9 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LocationProvider } from '../../providers/location/location'
 import { Storage } from '@ionic/storage';
-
+import { Observable } from 'rxjs/Observable';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Searchbar } from 'ionic-angular/components/searchbar/searchbar';
 //import { Contacts, ContactField, ContactName, ContactFieldType} from '@ionic-native/contacts';
 
 declare var google;
@@ -17,9 +18,25 @@ export class NewAlertPage {
   name:string;
   // Map Variables
   @ViewChild('map') mapElement: ElementRef;
+  @ViewChild('searchbar', { read: ElementRef }) searchbar: ElementRef;
+  plertDistance:any = 100;
+  addressElement: HTMLInputElement = null;
   map:any;
-  latitude: number;
-  longitude: number;
+  autocomplete:any;
+  address:any;
+  public latitude: number;
+  public longitude: number;
+  currentlat:number;
+  currentlng:number;
+  markers = [];
+
+  // Set Time variables
+  public isDateTime: boolean = false;
+  public event = {
+    month: '1990-02-19',
+    timeStarts: '07:43',
+    timeEnds: '1990-02-20'
+  }
   
   message:string;
 
@@ -50,11 +67,13 @@ export class NewAlertPage {
     console.log('Loading Current Location');
     this.locationProvider.getLocation()
     .subscribe(location =>{
+      this.currentlat = location.coords.latitude;
+      this.currentlng = location.coords.longitude;
       this.latitude = location.coords.latitude;
       this.longitude = location.coords.longitude;
-      console.log(location);
       //Load Map with current location
       this.loadMap(this.latitude,this.longitude);
+
     });
   }
 
@@ -69,6 +88,96 @@ export class NewAlertPage {
     }
 
     this.map = new google.maps.Map(this.mapElement.nativeElement,mapOptions);
+    // Init on Long hold event
+    google.maps.event.addListener(this.map, 'idle', () => {
+      let location = this.map.getCenter();
+      this.clearAllMarkers();
+      this.markers.push(this.addMarker(this.map.getCenter(), "Mein gesuchter Standort"));
+
+      //Update location
+      this.updateLocation(location.lat(),location.lng());
+    });
+    this.initAutocomplete();
+  }
+
+  updateLocation(lat,lng){
+    console.log("=======================");
+    console.log("Updating Location");
+    console.log(lat);
+    console.log(lng);
+    this.latitude = lat;
+    this.longitude = lng;
+  }
+
+  initAutocomplete(): void {
+    this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
+    this.createAutocomplete(this.addressElement).subscribe((location) => {
+      console.log('Searchdata', location);
+
+      let options = {
+        center: location,
+        zoom: 15
+      };
+      this.map.setOptions(options);
+      this.clearAllMarkers();
+      this.markers.push(this.addMarker(location, "Mein gesuchter Standort"));
+
+      //Update location
+      this.updateLocation(location.lat(),location.lng());
+    });
+  }
+
+  createAutocomplete(addressEl: HTMLInputElement): Observable<any> {
+    const autocomplete = new google.maps.places.Autocomplete(addressEl);
+    autocomplete.bindTo('bounds', this.map);
+    return new Observable((sub: any) => {
+      google.maps.event.addListener(autocomplete, 'place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry) {
+          sub.error({
+            message: 'Autocomplete returned place with no geometry'
+          });
+        } else {
+          console.log('Search Lat', place.geometry.location.lat());
+          console.log('Search Lng', place.geometry.location.lng());
+          sub.next(place.geometry.location);
+          //sub.complete();
+        }
+      });
+    });
+  }
+
+  addMarker(position, content) {
+    let marker = new google.maps.Marker({
+      map: this.map,
+      position: position,
+      label: "P",
+      zoom: 15
+    });
+
+    this.addInfoWindow(marker, content);
+    return marker;
+  }
+
+  clearAllMarkers(){
+    for (var i=0;i < this.markers.length;i++){
+      this.markers[i].setMap(null);
+    }
+  }
+  
+  addInfoWindow(marker, content) {
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    });
+
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(this.map, marker);
+    });
+  }
+
+  // SET DATE TIME FUNCTIONS
+  onToggleDateTime(){
+    this.isDateTime = !this.isDateTime;
   }
 
   // findContacts(query){
@@ -124,18 +233,38 @@ export class NewAlertPage {
   }
 
   saveAlert(){
-    console.log("saving");  
-    let newAlert = {
-      id:Math.random().toString(36).substr(2, 9),
-      name: this.name,
-      latitude: this.latitude,
-      longitude: this.longitude,
-      phones:this.selectedPhones,
-      message: this.message,
-      distance: 0,
-      isWaiting:false,
-      status: true
+    console.log("saving"); 
+    var distance = this.calculateDistance([this.latitude,this.longitude],[this.currentlat,this.currentlng]); 
+    console.log("Distance from point: "+distance+"meter");
+    console.log("Plert distance: "+this.plertDistance);
+    let newAlert = {};
+    if(distance - 500 < 0){
+      console.log("Inside Radius");
+      // Activate Plert alert
+      // waiting to go outside of radius to change status of isWaiting
+      newAlert = {
+        id:Math.random().toString(36).substr(2, 9),
+        name: this.name,
+        latitude: this.latitude,
+        longitude: this.longitude,
+        distance: 0,
+        isWaiting:false,
+        status: true
+      }
+    }else{
+      console.log("Outside Radius");
+      //Activate Plert alert
+      let newAlert = {
+        id:Math.random().toString(36).substr(2, 9),
+        name: this.name,
+        latitude: this.latitude,
+        longitude: this.longitude,
+        distance: distance,
+        isWaiting:true,
+        status: true
+      }
     }
+    
     this.alerts.push(newAlert);
     console.log(newAlert);
     // Set to storage
@@ -147,5 +276,18 @@ export class NewAlertPage {
     
   }
 
+  calculateDistance(loc1,loc2){
+    let radlat1 = Math.PI * loc1[0]/180
+    var radlat2 = Math.PI * loc2[0]/180
+    var theta = loc1[1]-loc2[1]
+    var radtheta = Math.PI * theta/180
+    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+    dist = Math.acos(dist)
+    dist = dist * 180/Math.PI
+    dist = dist * 60 * 1.1515
+    dist = dist * 1.609344 // Change to kilometres
+    dist = dist * 1000 // Chenge to meters
+    return Math.round(dist);
+  }
 
 }

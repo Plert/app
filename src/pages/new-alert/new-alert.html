@@ -6,7 +6,6 @@
 
 </ion-header>
 <ion-content padding>
-  
     <ion-list>
       <form (ngSubmit)="saveAlert()">
       <ion-item>
@@ -16,29 +15,57 @@
 
       <ion-item-group>
         <br>  
+        
         <ion-item-divider>Location:</ion-item-divider>
-        <div #map id="map">Map test</div> 
+        <div id="locationContainer">
+          <ion-searchbar #searchbar placeholder="Search"></ion-searchbar>
+          <div #map id="map"></div> 
+        </div>
         <ion-item>
-          <ion-label color="primary">Latitude</ion-label>
-          <ion-input disabled="true" [(ngModel)]="latitude" name="latitude" color="primary"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label color="primary">Longitude</ion-label>
-          <ion-input disabled="true" [(ngModel)]="longitude" name="longitude"  color="primary"></ion-input>
+            <ion-label color="primary">Radius</ion-label>
+            <ion-select [ngModelOptions]="{standalone:true}" [(ngModel)]="plertDistance">
+              <ion-option value="100">100 m</ion-option>
+              <ion-option value="500">500 m</ion-option>
+              <ion-option value="1000">1000 m</ion-option>
+            </ion-select>
         </ion-item>
       </ion-item-group>
 
+      
+
+      <ion-item-group>
+          <br>
+          <ion-item-divider>
+              <ion-toggle checked="false" (ionChange)="onToggleDateTime()"></ion-toggle>
+              <ion-label>
+                Set Date & Time
+              </ion-label>
+          </ion-item-divider>
+          <ion-item *ngIf="isDateTime">
+            <ion-label color="primary">Date</ion-label>
+            <ion-datetime displayFormat="MMM DD YYYY" [ngModelOptions]="{standalone:true}"  [(ngModel)]="event.month"></ion-datetime>
+          </ion-item>
+          <ion-item *ngIf="isDateTime">
+            <ion-label color="primary">Time</ion-label>
+            <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [ngModelOptions]="{standalone:true}"  [(ngModel)]="event.timeStarts"></ion-datetime>
+          </ion-item>
+      </ion-item-group>
       <ion-item-group>
         <br>
         <ion-item-divider>Notify to:</ion-item-divider>
 
         <ion-searchbar [(ngModel)]="queryContact" [ngModelOptions]="{standalone:true}" (ionInput)="getContacts($event)"></ion-searchbar>  
         <ion-list>
-
-          <ion-item *ngIf="!search">
+            <ion-item>
+              <ion-avatar item-start>
+                  <img src="assets/imgs/melody.png">
+              </ion-avatar>
+              <ion-label>Melody Huang</ion-label>
+              <ion-checkbox color="primary" item-end></ion-checkbox>
+            </ion-item>
+          <!-- <ion-item *ngIf="!search">
             <ion-label>No contacts found</ion-label>
-          </ion-item>
+          </ion-item> -->
 
           <ion-item *ngFor="let phone of phoneContactList">
             <!-- <ion-avatar item-start>
@@ -65,5 +92,4 @@
     </form>
     </ion-list>
  
-
 </ion-content>

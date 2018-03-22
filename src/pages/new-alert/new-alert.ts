@@ -19,7 +19,7 @@ export class NewAlertPage {
   // Map Variables
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('searchbar', { read: ElementRef }) searchbar: ElementRef;
-  plertDistance:any = 100;
+  plertDistance:number = 50;
   addressElement: HTMLInputElement = null;
   map:any;
   autocomplete:any;
@@ -29,6 +29,7 @@ export class NewAlertPage {
   currentlat:number;
   currentlng:number;
   markers = [];
+  mapCircle = [];
 
   // Set Time variables
   public isDateTime: boolean = false;
@@ -92,8 +93,8 @@ export class NewAlertPage {
     // Init on Long hold event
     google.maps.event.addListener(this.map, 'idle', () => {
       let location = this.map.getCenter();
-      this.clearAllMarkers();
-      this.markers.push(this.addMarker(this.map.getCenter(), "Mein gesuchter Standort"));
+      this.addMarker(this.map.getCenter(), "Mein gesuchter Standort");
+    
 
       //Update location
       this.updateLocation(location.lat(),location.lng());
@@ -120,8 +121,7 @@ export class NewAlertPage {
         zoom: 15
       };
       this.map.setOptions(options);
-      this.clearAllMarkers();
-      this.markers.push(this.addMarker(location, "Mein gesuchter Standort"));
+      this.addMarker(location, "Mein gesuchter Standort");
 
       //Update location
       this.updateLocation(location.lat(),location.lng());
@@ -149,6 +149,7 @@ export class NewAlertPage {
   }
 
   addMarker(position, content) {
+    this.clearAllMarkers();
     let marker = new google.maps.Marker({
       map: this.map,
       position: position,
@@ -156,6 +157,20 @@ export class NewAlertPage {
       zoom: 15
     });
 
+    // Add circle overlay and bind to marker
+    console.log("Plert Distance: "+this.plertDistance);
+    var circle = new google.maps.Circle({
+      map: this.map,
+      radius: +this.plertDistance,    // in meters
+      fillColor: '#F77600',
+      strokeColor: '#F77600',
+      strokeOpacity: 0.1,
+      strokeWeight: 2,
+    });
+    circle.bindTo('center', marker, 'position');
+
+    this.markers.push(marker);
+    this.markers.push(circle);
     this.addInfoWindow(marker, content);
     return marker;
   }

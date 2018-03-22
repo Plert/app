@@ -33,9 +33,8 @@ export class NewAlertPage {
   // Set Time variables
   public isDateTime: boolean = false;
   public event = {
-    month: '1990-02-19',
-    timeStarts: '07:43',
-    timeEnds: '1990-02-20'
+    date: '1990-02-19',
+    time: '07:43'
   }
   
   message:string;
@@ -49,7 +48,9 @@ export class NewAlertPage {
     public navParams: NavParams, 
     private locationProvider: LocationProvider,
     private storage: Storage, private sanitizer: DomSanitizer) {
-
+      //Set current date to date component
+      let today = new Date();
+      this.event.date = today.toISOString().substring(0, 10);
       this.storage.get("alerts").then((val)=>{
         if(val != null){
           // Set alerts array

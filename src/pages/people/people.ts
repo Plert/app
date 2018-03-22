@@ -14,7 +14,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'people.html',
 })
 export class PeoplePage {
-
+  addBy:any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 

@@ -43,11 +43,11 @@
           </ion-item-divider>
           <ion-item *ngIf="isDateTime">
             <ion-label color="primary">Date</ion-label>
-            <ion-datetime displayFormat="MMM DD YYYY" [ngModelOptions]="{standalone:true}"  [(ngModel)]="event.month"></ion-datetime>
+            <ion-datetime displayFormat="MMM DD YYYY" [ngModelOptions]="{standalone:true}"  [(ngModel)]="event.date"></ion-datetime>
           </ion-item>
           <ion-item *ngIf="isDateTime">
             <ion-label color="primary">Time</ion-label>
-            <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [ngModelOptions]="{standalone:true}"  [(ngModel)]="event.timeStarts"></ion-datetime>
+            <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [ngModelOptions]="{standalone:true}"  [(ngModel)]="event.time"></ion-datetime>
           </ion-item>
       </ion-item-group>
       <ion-item-group>
@@ -56,13 +56,41 @@
 
         <ion-searchbar [(ngModel)]="queryContact" [ngModelOptions]="{standalone:true}" (ionInput)="getContacts($event)"></ion-searchbar>  
         <ion-list>
-            <ion-item>
-              <ion-avatar item-start>
-                  <img src="assets/imgs/melody.png">
-              </ion-avatar>
-              <ion-label>Melody Huang</ion-label>
-              <ion-checkbox color="primary" item-end></ion-checkbox>
-            </ion-item>
+          <ion-item>
+            <ion-avatar item-start>
+                <img src="assets/imgs/melody.png">
+            </ion-avatar>
+            <ion-label>Melody Huang</ion-label>
+            <ion-checkbox color="primary" item-end></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-avatar item-start>
+                <img src="assets/imgs/mary.jpg">
+            </ion-avatar>
+            <ion-label>Mary Salazar</ion-label>
+            <ion-checkbox color="primary" item-end></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-avatar item-start>
+                <img src="assets/imgs/ana.jpg">
+            </ion-avatar>
+            <ion-label>Ana Vega</ion-label>
+            <ion-checkbox color="primary" item-end></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-avatar item-start>
+                <img src="assets/imgs/rafael.jpg">
+            </ion-avatar>
+            <ion-label>Rafael Salazar</ion-label>
+            <ion-checkbox color="primary" item-end></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-avatar item-start>
+                <img src="assets/imgs/erick.jpg">
+            </ion-avatar>
+            <ion-label>Erick Salinas</ion-label>
+            <ion-checkbox color="primary" item-end></ion-checkbox>
+          </ion-item>
           <!-- <ion-item *ngIf="!search">
             <ion-label>No contacts found</ion-label>
           </ion-item> -->

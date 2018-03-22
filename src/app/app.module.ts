@@ -7,6 +7,7 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { NewAlertPage } from '../pages/new-alert/new-alert';
+import { PeoplePage } from '../pages/people/people';
 import { ViewAlertPage } from '../pages/view-alert/view-alert';
 import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -39,7 +40,8 @@ import { FbAuthProvider } from '../providers/fb-auth/fb-auth';
     HomePage,
     TabsPage,
     NewAlertPage,
-    ViewAlertPage
+    ViewAlertPage,
+    PeoplePage
   ],
   imports: [
     BrowserModule,
@@ -55,7 +57,8 @@ import { FbAuthProvider } from '../providers/fb-auth/fb-auth';
     HomePage,
     TabsPage,
     NewAlertPage,
-    ViewAlertPage
+    ViewAlertPage,
+    PeoplePage
   ],
   providers: [
     HTTP,

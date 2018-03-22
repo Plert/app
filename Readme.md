@@ -6,7 +6,7 @@ This application is made in ionic so the process to run this
 app is:
 
 # Test in simulator
-ionic cordova emulate ios --livereload
+ionic cordova emulate ios --target "iPhone-8, 11.2" --livereload
 
 # Test in phone
 

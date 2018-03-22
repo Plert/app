@@ -7,6 +7,95 @@
 <ion-content padding>
   <ion-scroll style="width:100%;height:100vh" scrollY="true">
   <ion-list  scroll="true" >
+      <ion-card>
+          <ion-item>
+            <h2 text-center>Home Nicaragua</h2>
+          </ion-item>
+          
+          <ion-grid no-padding>
+            <ion-row justify-content-center>
+
+                  <div class='avatar'>
+                    <img src="assets/imgs/ana.jpg"/> 
+                  </div>
+
+
+
+                  <div class='avatar'>
+                    <img src="assets/imgs/rafael.jpg"/> 
+                  </div>
+
+
+                  <div class='avatar'>
+                    <img src="assets/imgs/mary.jpg"/> 
+                  </div>
+              
+                  <div class='avatar avatar-disable'>
+                    <img src="assets/imgs/me.png"/> 
+                  </div>
+
+            </ion-row>
+          </ion-grid>
+
+          <ion-item actions>
+            <button ion-button color="danger" clear item-start icon-start>
+              <ion-icon name='trash'></ion-icon>
+              Delete
+            </button>
+            <!-- <button ion-button color="secondary" clear item-end icon-start>
+              <ion-icon name='notifications'></ion-icon>
+                Alert Now
+            </button> -->
+            <button ion-button color="secondary" clear item-end icon-start>
+              <ion-icon name='map'></ion-icon>
+                Navigate
+            </button>
+            <!-- <ion-toggle right top [(ngModel)]="alert.status" (ionChange)="updateAlerts()"></ion-toggle> -->
+          </ion-item>
+    </ion-card>
+
+    <ion-card>
+        <ion-item>
+          <h2 text-center>Room</h2>
+        </ion-item>
+        
+        <ion-grid no-padding>
+          <ion-row >
+              <img class="mapImg" src="https://maps.googleapis.com/maps/api/staticmap?center=24.790669773740376,120.99380961125091&zoom=18&size=600x300&maptype=roadmap&markers=color:orange%7Clabel:P%7C24.790669773740376,120.99380961125091" alt="Home">
+          </ion-row>
+          <ion-row justify-content-center>
+            
+                <div class='avatar avatar-disable'>
+                  <img src="assets/imgs/melody.png"/> 
+                </div>
+
+            
+            
+                <div class='avatar '>
+                  <img src="assets/imgs/me.png"/> 
+                </div>
+            
+
+          </ion-row>
+        </ion-grid>
+
+        <ion-item actions>
+          <button ion-button color="danger" clear item-start icon-start>
+            <ion-icon name='trash'></ion-icon>
+            Delete
+          </button>
+          <!-- <button ion-button color="secondary" clear item-end icon-start>
+            <ion-icon name='notifications'></ion-icon>
+              Alert Now
+          </button> -->
+          <button ion-button color="secondary" clear item-end icon-start>
+            <ion-icon name='map'></ion-icon>
+              Navigate
+          </button>
+          <!-- <ion-toggle right top [(ngModel)]="alert.status" (ionChange)="updateAlerts()"></ion-toggle> -->
+        </ion-item>
+  </ion-card>
+
     <ion-card *ngFor="let alert of alerts" >
           <ion-item (click)="onClick(alert)" >
             <h2>{{alert.name}} <span ion-text right color="secondary" class="item-bold">({{alert.distance}} m)</span></h2>

@@ -66,7 +66,7 @@ export class LocationProvider {
     // Foreground Tracking
 
     let options = {
-      frequency: 3000,
+      frequency: 60000,
       enableHighAccuracy: true
     };
 

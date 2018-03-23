@@ -19,7 +19,7 @@
         <ion-item-divider>Location:</ion-item-divider>
         <div id="locationContainer">
           <ion-searchbar #searchbar placeholder="Search"></ion-searchbar>
-          <div #map id="map"></div>
+          <div #mapView id="map"></div>
         </div>
         <ion-item>
           <ion-label color="primary">Radius</ion-label>
@@ -38,7 +38,7 @@
       <ion-item-group>
         <br>
         <ion-item-divider>
-          <ion-toggle checked="false" (ionChange)="onToggleDateTime()"></ion-toggle>
+          <ion-toggle [(ngModel)]="isDateTime" [ngModelOptions]="{standalone:true}" ></ion-toggle>
           <ion-label>
             Set Date & Time
           </ion-label>
@@ -96,7 +96,7 @@
         </ion-list>
       </ion-item-group>
 
-      <button ion-button block type="submit">Save</button>
+      <button ion-button block type="submit">Update</button>
 
     </form>
   </ion-list>

@@ -56,7 +56,7 @@
     </ion-card>
 
     <ion-card *ngFor="let alert of alerts" >
-        <time datetime="2014-09-20" class="icon"  >
+        <time *ngIf="alert.isDateTime" class="icon"  >
             <em>{{ parseDate(alert.dateTime.date).day}}</em>
             <strong>{{ parseDate(alert.dateTime.date).month}}</strong>
             <span>{{ parseDate(alert.dateTime.date).date}}</span>

@@ -20,24 +20,32 @@ export class ViewAlertPage {
   longitude: number;
   currentlat:number;
   currentlng:number;
-
+  isDateTime: boolean =false;
   search = false;
   // Map Variables
-  @ViewChild('map') mapElement: ElementRef;
+  @ViewChild('mapView') mapElement: ElementRef;
   @ViewChild('searchbar', { read: ElementRef }) searchbar: ElementRef;
   plertDistance:number = 50;
   addressElement: HTMLInputElement = null;
   map:any;
   autocomplete:any
   markers = [];
-
+  public event = {
+    date: '1990-02-19',
+    time: '07:43'
+  }
   constructor(public navCtrl: NavController, public navParams: NavParams,
   private storage:Storage, private sanitizer: DomSanitizer,
   private locationProvider: LocationProvider) {
+    console.log("Editing Alert");
+    console.log(this.navParams.data);
     this.id = this.navParams.data.id;
     this.name = this.navParams.data.name;
     this.latitude = this.navParams.data.latitude;
     this.longitude = this.navParams.data.longitude;
+    this.plertDistance = this.navParams.data.plertDistance;
+    this.isDateTime = this.navParams.data.isDateTime;
+    this.event = this.navParams.data.dateTime;
     this.storage.get("alerts").then((val)=>{
       if(val != null){
         // Set alerts array
@@ -54,9 +62,9 @@ export class ViewAlertPage {
     .subscribe(location =>{
       this.currentlat = location.coords.latitude;
       this.currentlng = location.coords.longitude;
+      console.log("Loading Map with "+this.latitude+","+this.longitude);
       //Load Map with current location
       this.loadMap(this.latitude,this.longitude);
-
     });
   }
    editAlert(){
@@ -65,6 +73,9 @@ export class ViewAlertPage {
         alert.name = this.name;
         alert.latitude = this.latitude;
         alert.longitude = this.longitude;
+        alert.isDateTime= this.isDateTime;
+        alert.plertDistance= +this.plertDistance;
+        alert.dateTime= this.event;
       }
     }
 
@@ -189,4 +200,6 @@ export class ViewAlertPage {
       infoWindow.open(this.map, marker);
     });
   }
+
+
 }

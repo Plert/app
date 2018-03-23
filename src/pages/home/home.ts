@@ -17,6 +17,9 @@ export class HomePage {
   onClickNewAlert: any;
   alerts:any;
   avatarClasses: string = 'avatar';
+
+  
+
   constructor(public navCtrl: NavController,
   private toast:ToastController,
   private storage: Storage,
@@ -35,6 +38,7 @@ export class HomePage {
       if(val != null){
         // Set alerts array
         this.alerts = JSON.parse(val);
+        
         // Start tracking location
         this.start();
       }else{
@@ -75,6 +79,17 @@ export class HomePage {
     let newMessage = alert.message + "\n(This is an automatic alert - Visit www.plert.com)"
     //this.sendSMS(alert.phones,newMessage);
     this.sendByAPI(alert.phones,newMessage);
+  }
+
+  parseDate(date){
+    //Weekdays
+    let weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    let newdate = new Date(date);
+    return {
+      day: weekdays[newdate.getDay()],
+      month: newdate.toLocaleString("en-us", { month: "long" }),
+      date: newdate.getDate()
+    }
   }
 
   navigateTo(alert){

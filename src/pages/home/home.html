@@ -5,10 +5,11 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-scroll style="width:100%;height:100vh" scrollY="true">
+  <ion-scroll style="width:100%;height:100%" scrollY="true">
   <ion-list  scroll="true" >
+    
     <ion-card>
-          <ion-item>
+          <ion-item class="card-title">
             <h2 text-center>Home Nicaragua</h2>
           </ion-item>
           
@@ -55,9 +56,16 @@
     </ion-card>
 
     <ion-card *ngFor="let alert of alerts">
-      <ion-item>
-        <h2 text-center>{{alert.name}}</h2>
+        <time datetime="2014-09-20" class="icon"  >
+            <em>{{ parseDate(alert.dateTime.date).day}}</em>
+            <strong>{{ parseDate(alert.dateTime.date).month}}</strong>
+            <span>{{ parseDate(alert.dateTime.date).date}}</span>
+        </time>
+        
+      <ion-item class="card-title">
+        <h2 text-center >{{alert.name}}</h2> 
       </ion-item>
+      
       
       <ion-grid no-padding>
         <ion-row justify-content-center>

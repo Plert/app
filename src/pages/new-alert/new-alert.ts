@@ -263,6 +263,8 @@ export class NewAlertPage {
         name: this.name,
         latitude: this.latitude,
         longitude: this.longitude,
+        isDateTime: this.isDateTime,
+        dateTime: this.event,
         distance: 0,
         isWaiting:false,
         status: true
@@ -275,6 +277,8 @@ export class NewAlertPage {
         name: this.name,
         latitude: this.latitude,
         longitude: this.longitude,
+        isDateTime: this.isDateTime,
+        dateTime: this.event,
         distance: distance,
         isWaiting:true,
         status: true

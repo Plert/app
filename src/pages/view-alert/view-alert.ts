@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Contacts, ContactField, ContactName, ContactFieldType} from '@ionic-native/contacts';
+import { LocationProvider } from '../../providers/location/location'
+
+declare var google;
 @IonicPage()
 @Component({
   selector: 'page-view-alert',
@@ -15,26 +18,26 @@ export class ViewAlertPage {
   name:string;
   latitude: number;
   longitude: number;
-  phone1: string;
-  phone2: string;
-  phone3: string;
-  message:string;
+  currentlat:number;
+  currentlng:number;
 
-  phoneContactList = [];
-  queryContact:string ="";
-  selectedPhones = [];
   search = false;
+  // Map Variables
+  @ViewChild('map') mapElement: ElementRef;
+  @ViewChild('searchbar', { read: ElementRef }) searchbar: ElementRef;
+  plertDistance:number = 50;
+  addressElement: HTMLInputElement = null;
+  map:any;
+  autocomplete:any
+  markers = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  private storage:Storage,
-  private contacts: Contacts, private sanitizer: DomSanitizer) {
+  private storage:Storage, private sanitizer: DomSanitizer,
+  private locationProvider: LocationProvider) {
     this.id = this.navParams.data.id;
     this.name = this.navParams.data.name;
     this.latitude = this.navParams.data.latitude;
     this.longitude = this.navParams.data.longitude;
-    this.selectedPhones = this.navParams.data.phones;
-    this.message = this.navParams.data.message;
-
     this.storage.get("alerts").then((val)=>{
       if(val != null){
         // Set alerts array
@@ -45,71 +48,23 @@ export class ViewAlertPage {
     });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ViewAlertPage');
-    this.findContacts("");
-  }
+  ionViewWillEnter() {
+    console.log('Loading Current Location');
+    this.locationProvider.getLocation()
+    .subscribe(location =>{
+      this.currentlat = location.coords.latitude;
+      this.currentlng = location.coords.longitude;
+      //Load Map with current location
+      this.loadMap(this.latitude,this.longitude);
 
-  findContacts(query){
-    //Get phone contacts
-    this.phoneContactList = [];
-    console.log("Getting phone contacts :"+query);
-    let fields:ContactFieldType[] = ['displayName', 'phoneNumbers', 'photos','name'];
-    this.contacts.find(fields,{filter: query, multiple: true, hasPhoneNumber: true}).then((contacts) => {
-      console.log("Final Contacts");
-      for (var i=0 ; i < contacts.length; i++){
-        console.log(contacts[i]);
-        if(contacts[i].name !== null) {
-          var contact = {};
-          contact["name"]   = contacts[i].name.formatted;
-          contact["number"] = contacts[i].phoneNumbers[0].value;
-          if(contacts[i].photos != null) {
-            console.log(contacts[i].photos);
-            contact["image"] = this.sanitizer.bypassSecurityTrustUrl(contacts[i].photos[0].value);
-            console.log(contact);
-          } else {
-            contact["image"] = "assets/dummy-profile-pic.png";
-          }
-          this.phoneContactList.push(contact);
-        }
-      }
-      console.log(this.phoneContactList);
-      this.search = true;    
-    },(err) => {
-      this.phoneContactList = [];
-      this.search = false; 
-     });
+    });
   }
-
-  getContacts(event){
-    console.log(event);
-    console.log(this.queryContact);
-    this.findContacts(this.queryContact);
-  }
-
-  onChangeContact(phone,isChecked){
-    if(isChecked){
-      //Add phone to list
-      this.selectedPhones.push(String(phone));
-    }else{
-      //remove from list
-      let index = this.selectedPhones.indexOf(String(phone));
-      if(index > -1){
-        this.selectedPhones.splice(index,1);
-      }
-    }
-    console.log("Total Phones");
-    console.log(this.selectedPhones);
-  }
-
-  editAlert(){
+   editAlert(){
     for(let alert of this.alerts){
       if(alert.id == this.id){
         alert.name = this.name;
         alert.latitude = this.latitude;
         alert.longitude = this.longitude;
-        alert.message = this.message;
-        alert.phones = this.selectedPhones;
       }
     }
 
@@ -122,4 +77,116 @@ export class ViewAlertPage {
     window.location.reload();
   }
 
+
+  loadMap(lat,long){
+    console.log('Loading Google maps('+lat+","+long+")")
+    let latLng = new google.maps.LatLng(lat,long);
+
+    let mapOptions = {
+      center: latLng,
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+
+    this.map = new google.maps.Map(this.mapElement.nativeElement,mapOptions);
+    // Init on Long hold event
+    google.maps.event.addListener(this.map, 'idle', () => {
+      let location = this.map.getCenter();
+      this.addMarker(this.map.getCenter(), "Mein gesuchter Standort");
+    
+
+      //Update location
+      this.updateLocation(location.lat(),location.lng());
+    });
+    this.initAutocomplete();
+  }
+
+  updateLocation(lat,lng){
+    console.log("=======================");
+    console.log("Updating Location");
+    console.log(lat);
+    console.log(lng);
+    this.latitude = lat;
+    this.longitude = lng;
+  }
+
+  initAutocomplete(): void {
+    this.addressElement = this.searchbar.nativeElement.querySelector('.searchbar-input');
+    this.createAutocomplete(this.addressElement).subscribe((location) => {
+      console.log('Searchdata', location);
+
+      let options = {
+        center: location,
+        zoom: 15
+      };
+      this.map.setOptions(options);
+      this.addMarker(location, "Mein gesuchter Standort");
+
+      //Update location
+      this.updateLocation(location.lat(),location.lng());
+    });
+  }
+
+  createAutocomplete(addressEl: HTMLInputElement): Observable<any> {
+    const autocomplete = new google.maps.places.Autocomplete(addressEl);
+    autocomplete.bindTo('bounds', this.map);
+    return new Observable((sub: any) => {
+      google.maps.event.addListener(autocomplete, 'place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry) {
+          sub.error({
+            message: 'Autocomplete returned place with no geometry'
+          });
+        } else {
+          console.log('Search Lat', place.geometry.location.lat());
+          console.log('Search Lng', place.geometry.location.lng());
+          sub.next(place.geometry.location);
+          //sub.complete();
+        }
+      });
+    });
+  }
+
+  addMarker(position, content) {
+    this.clearAllMarkers();
+    let marker = new google.maps.Marker({
+      map: this.map,
+      position: position,
+      label: "P",
+      zoom: 15
+    });
+
+    // Add circle overlay and bind to marker
+    console.log("Plert Distance: "+this.plertDistance);
+    var circle = new google.maps.Circle({
+      map: this.map,
+      radius: +this.plertDistance,    // in meters
+      fillColor: '#F77600',
+      strokeColor: '#F77600',
+      strokeOpacity: 0.1,
+      strokeWeight: 2,
+    });
+    circle.bindTo('center', marker, 'position');
+
+    this.markers.push(marker);
+    this.markers.push(circle);
+    this.addInfoWindow(marker, content);
+    return marker;
+  }
+
+  clearAllMarkers(){
+    for (var i=0;i < this.markers.length;i++){
+      this.markers[i].setMap(null);
+    }
+  }
+  
+  addInfoWindow(marker, content) {
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    });
+
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(this.map, marker);
+    });
+  }
 }

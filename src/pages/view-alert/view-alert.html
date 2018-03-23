@@ -6,64 +6,101 @@
 
 </ion-header>
 <ion-content padding>
-  
-    <ion-list>
-      <form (ngSubmit)="editAlert()">
+  <ion-list>
+    <form (ngSubmit)="editAlert()">
       <ion-item>
         <ion-label color="primary">Alert Name</ion-label>
-        <ion-input [(ngModel)]="name"  name="name" placeholder="Alert name"></ion-input>
+        <ion-input [(ngModel)]="name" name="name" placeholder="Alert name"></ion-input>
       </ion-item>
 
-     
+      <ion-item-group>
+        <br>
 
+        <ion-item-divider>Location:</ion-item-divider>
+        <div id="locationContainer">
+          <ion-searchbar #searchbar placeholder="Search"></ion-searchbar>
+          <div #map id="map"></div>
+        </div>
+        <ion-item>
+          <ion-label color="primary">Radius</ion-label>
+          <ion-select [ngModelOptions]="{standalone:true}" [(ngModel)]="plertDistance">
+            <ion-option value="50">50 m</ion-option>
+            <ion-option value="100">100 m</ion-option>
+            <ion-option value="250">250 m</ion-option>
+            <ion-option value="500">500 m</ion-option>
+            <ion-option value="1000">1000 m</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-item-group>
+
+
+
+      <ion-item-group>
+        <br>
+        <ion-item-divider>
+          <ion-toggle checked="false" (ionChange)="onToggleDateTime()"></ion-toggle>
+          <ion-label>
+            Set Date & Time
+          </ion-label>
+        </ion-item-divider>
+        <ion-item *ngIf="isDateTime">
+          <ion-label color="primary">Date</ion-label>
+          <ion-datetime displayFormat="MMM DD YYYY" [ngModelOptions]="{standalone:true}" [(ngModel)]="event.date"></ion-datetime>
+        </ion-item>
+        <ion-item *ngIf="isDateTime">
+          <ion-label color="primary">Time</ion-label>
+          <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [ngModelOptions]="{standalone:true}" [(ngModel)]="event.time"></ion-datetime>
+        </ion-item>
+      </ion-item-group>
       <ion-item-group>
         <br>
         <ion-item-divider>Notify to:</ion-item-divider>
 
-        <ion-searchbar [(ngModel)]="queryContact" [ngModelOptions]="{standalone:true}" (ionInput)="getContacts($event)"></ion-searchbar>  
+        <ion-searchbar [(ngModel)]="queryContact" [ngModelOptions]="{standalone:true}" (ionInput)="getContacts($event)"></ion-searchbar>
         <ion-list>
-
-          <ion-item *ngIf="!search">
-            <ion-label>No contacts found</ion-label>
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="assets/imgs/melody.png">
+            </ion-avatar>
+            <ion-label>Melody Huang</ion-label>
+            <ion-checkbox color="primary" item-end></ion-checkbox>
           </ion-item>
-
-          <ion-item *ngFor="let phone of phoneContactList">
-            <!-- <ion-avatar item-start>
-                <img [src]="phone.image">
-            </ion-avatar> -->
-            <ion-label>{{phone.name}}</ion-label>
-            <ion-checkbox (ionChange)="onChangeContact(phone.number, $event.checked)" color="primary" checked="{{selectedPhones.includes(phone.number)}}" item-end></ion-checkbox>
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="assets/imgs/mary.jpg">
+            </ion-avatar>
+            <ion-label>Mary Salazar</ion-label>
+            <ion-checkbox color="primary" item-end></ion-checkbox>
           </ion-item>
-        </ion-list>    
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="assets/imgs/ana.jpg">
+            </ion-avatar>
+            <ion-label>Ana Vega</ion-label>
+            <ion-checkbox color="primary" item-end></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="assets/imgs/rafael.jpg">
+            </ion-avatar>
+            <ion-label>Rafael Salazar</ion-label>
+            <ion-checkbox color="primary" item-end></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="assets/imgs/erick.jpg">
+            </ion-avatar>
+            <ion-label>Erick Salinas</ion-label>
+            <ion-checkbox color="primary" item-end></ion-checkbox>
+          </ion-item>
+        </ion-list>
       </ion-item-group>
 
-      <ion-item-group>
-        <br>  
-        <ion-item-divider>Message:</ion-item-divider>
-        <ion-item>
-          <ion-textarea [(ngModel)]="message" name="message"  placeholder="I arrive safe "></ion-textarea>
-        </ion-item>
-      </ion-item-group>
-
-      <ion-item-group>
-        <br>  
-        <ion-item-divider>Location:</ion-item-divider>
-        <ion-item>
-          <ion-label color="primary">Latitude</ion-label>
-          <ion-input disabled="true" [(ngModel)]="latitude" name="latitude" color="primary"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label color="primary">Longitude</ion-label>
-          <ion-input disabled="true" [(ngModel)]="longitude" name="longitude"  color="primary"></ion-input>
-        </ion-item>
-      </ion-item-group>
-
-      <button ion-button block type="submit">Update</button>
+      <button ion-button block type="submit">Save</button>
 
     </form>
-    </ion-list>
- 
+  </ion-list>
+
+
 
 </ion-content>
-

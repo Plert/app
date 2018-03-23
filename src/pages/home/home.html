@@ -55,14 +55,14 @@
           </ion-item>
     </ion-card>
 
-    <ion-card *ngFor="let alert of alerts">
+    <ion-card *ngFor="let alert of alerts" >
         <time datetime="2014-09-20" class="icon"  >
             <em>{{ parseDate(alert.dateTime.date).day}}</em>
             <strong>{{ parseDate(alert.dateTime.date).month}}</strong>
             <span>{{ parseDate(alert.dateTime.date).date}}</span>
         </time>
         
-      <ion-item class="card-title">
+      <ion-item class="card-title" (click)="onClick(alert)">
         <h2 text-center >{{alert.name}}</h2> 
       </ion-item>
       

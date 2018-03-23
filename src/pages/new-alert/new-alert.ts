@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Observable';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Searchbar } from 'ionic-angular/components/searchbar/searchbar';
+import { LoadingController } from 'ionic-angular';
 //import { Contacts, ContactField, ContactName, ContactFieldType} from '@ionic-native/contacts';
 
 declare var google;
@@ -48,7 +49,8 @@ export class NewAlertPage {
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
     private locationProvider: LocationProvider,
-    private storage: Storage, private sanitizer: DomSanitizer) {
+    private storage: Storage, private sanitizer: DomSanitizer,
+    public loadingCtrl: LoadingController) {
       //Set current date to date component
       let today = new Date();
       this.event.date = today.toISOString().substring(0, 10);
@@ -250,6 +252,13 @@ export class NewAlertPage {
 
   saveAlert(){
     console.log("saving"); 
+    let loading = this.loadingCtrl.create({
+      spinner: "bubbles",
+      content: 'Please wait...',
+      duration:3000
+    });
+    loading.present();
+    
     var distance = this.calculateDistance([this.latitude,this.longitude],[this.currentlat,this.currentlng]); 
     console.log("Distance from point: "+distance+"meter");
     console.log("Plert distance: "+this.plertDistance);

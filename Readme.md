@@ -21,3 +21,9 @@ ionic cordova build ios
     Add Users
 
 2. 
+
+Notes
+Google Authentication
+https://angularfirebase.com/lessons/ionic-google-login-with-firebase-and-angularfire/
+
+com.googleusercontent.apps.666373632384-0alqpjjhmv9qnp6m0ulrie74p362gq2i

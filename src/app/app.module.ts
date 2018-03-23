@@ -1,10 +1,12 @@
 import { NgModule, ErrorHandler } from '@angular/core';
+import { ComponentsModule } from '../components/components.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
+import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { NewAlertPage } from '../pages/new-alert/new-alert';
 import { PeoplePage } from '../pages/people/people';
@@ -33,10 +35,20 @@ import { ContactsProvider } from '../providers/contacts/contacts';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FbAuthProvider } from '../providers/fb-auth/fb-auth';
 
+// FireBase
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
+// Authentication
+import { GooglePlus } from '@ionic-native/google-plus'; // We'll install this in the next section
+
+const firebaseConfig = {
+  // your config
+}
 @NgModule({
   declarations: [
     MyApp,
+    LoginPage,
     AboutPage,
     ContactPage,
     HomePage,
@@ -50,11 +62,15 @@ import { FbAuthProvider } from '../providers/fb-auth/fb-auth';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(firebaseConfig), // <-- firebase here
+    AngularFireAuthModule,
+    ComponentsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    LoginPage,
     AboutPage,
     ContactPage,
     HomePage,
@@ -79,7 +95,8 @@ import { FbAuthProvider } from '../providers/fb-auth/fb-auth';
     SocialSharing,
     Contacts,
     ContactsProvider,
-    FbAuthProvider
+    FbAuthProvider,
+    GooglePlus,
   ]
 })
 export class AppModule {}

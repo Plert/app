@@ -1,0 +1,11 @@
+<!-- Generated template for the GoogleLoginComponent component -->
+<div *ngIf="(user | async) || {} as user">
+  <ion-row justify-content-center> 
+      <button ion-button block *ngIf="!user.uid" (tab)="googleLogin()">Log in with Google</button>
+  </ion-row>
+
+  <ion-row justify-content-center ngIf="user.uid"> 
+      <button ion-button block (tab)="signOut()">Log out</button>
+  </ion-row>
+  
+</div>

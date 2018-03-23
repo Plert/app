@@ -30,7 +30,7 @@
                     <img src="assets/imgs/mary.jpg"/> 
                   </div>
               
-                  <div class='avatar avatar-disable'>
+                  <div class='avatar avatarDisabled'>
                     <img src="assets/imgs/me.png"/> 
                   </div>
 
@@ -62,7 +62,7 @@
       <ion-grid no-padding>
         <ion-row justify-content-center>
 
-              <div [ngClass]="{ 'avatar avatar-disable': (alert.isWaiting == true),'avatar ': (alert.isWaiting == false) }">
+              <div class="avatar" [class.avatarDisabled]="alert.isWaiting">
                 <img src="assets/imgs/me.png"/> 
               </div>
 
